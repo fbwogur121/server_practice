@@ -13,7 +13,6 @@ const {emit} = require("nodemon");
  * [GET] /app/test
  */
 exports.getTest = async function (req, res) {
-    console.log("sibal");
     return res.send(response(baseResponse.SUCCESS))
 }
 
