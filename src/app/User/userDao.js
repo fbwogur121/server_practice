@@ -12,7 +12,7 @@ async function selectUser(connection) {
 async function selectUserEmail(connection, email) {
   const selectUserEmailQuery = `
                 SELECT email, nickname 
-                FROM UserInfo 
+                FROM User 
                 WHERE email = ?;
                 `;
   const [emailRows] = await connection.query(selectUserEmailQuery, email);
