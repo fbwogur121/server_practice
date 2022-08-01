@@ -15,6 +15,7 @@ const {emit} = require("nodemon");
 exports.getTest = async function (req, res) {
     console.log('test');
     console.log('test2');
+    console.log('test3');
     return res.send(response(baseResponse.SUCCESS))
 }
 
