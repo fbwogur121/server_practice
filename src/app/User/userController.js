@@ -92,6 +92,7 @@ exports.getUserById = async function (req, res) {
     const userIdFromJWT = req.verifiedToken.userId;
     const userId = req.params.userId;
 
+    // jwt
     if (userIdFromJWT != userId) {
         return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
     } else {
@@ -115,16 +116,21 @@ exports.getUserById = async function (req, res) {
  * API No. 4
  * API Name : 로그인 API
  * [POST] /app/login
- * body : email, passsword
+ * body : email, passsword 
  */
 exports.login = async function (req, res) {
 
-    const {email, password} = req.body;
+    const {id, password} = req.body;
+    
+    //check empty
+    if (!id) return res.send(response(baseResponse.EMPTY_ID));
+    if (!password) return res.send(response(baseResponse.EMPTY_PASSWORD));
 
-    // TODO: email, password 형식적 Validation
+    // check length
+    if (id.length > 20) return res.send(response(baseResponse.LENGTH_ID));
+    if (password.length > 20 || password.length < 6) return res.send(response(baseResponse.LENGTH_PASSWORD));
 
-    const signInResponse = await userService.postSignIn(email, password);
-
+    const signInResponse = await userService.postSignIn(id, password);
     return res.send(signInResponse);
 };
 
@@ -140,18 +146,41 @@ exports.patchUsers = async function (req, res) {
 
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId
-
+    const userIdFromJWT = req.verifiedToken.userId;
     const userId = req.params.userId;
-    const nickname = req.body.nickname;
+    const {nickname, password, addressIdx, subAddressIdx, status} = req.body;
+
+    //check ID
+    if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
+    if (userId.length > 20) return res.send(errResponse(baseResponse.LENGTH_ID));
 
     if (userIdFromJWT != userId) {
-        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+        return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
     } else {
-        if (!nickname) return res.send(errResponse(baseResponse.USER_NICKNAME_EMPTY));
+        if (!(nickname || password || addressIdx || subAddressIdx || status)) 
+            return res.send(errResponse(baseResponse.EMPTY_INFO_TO_UPDATE));
 
-        const editUserInfo = await userService.editUser(userId, nickname)
-        return res.send(editUserInfo);
+        if (nickname) {
+            const patchNicknameResponse = await userService.patchNickname(userId, nickname);
+            patchResponse.nickname = patchNicknameResponse;
+        }
+        if (password) {
+            const patchPasswordResponse = await userService.patchPassword(userId, password);
+            patchResponse.password = patchPasswordResponse;
+        }
+        if (addressIdx) {
+            const patchAddressIdxResponse = await userService.patchAddressIdx(userId, addressIdx);
+            patchResponse.addressIdx = patchAddressIdxResponse;
+        }
+        if (subAddressIdx) {
+            const patchSubAddressIdxResponse = await userService.patchSubAddressIdx(userId, subAddressIdx);
+            patchResponse.SubAddressIdx = patchSubAddressIdxResponse;
+        }
+        if (status) {
+            const patchStatusResponse = await userService.patchStatus(userId, status);
+            patchResponse.status = patchStatusResponse;
+        }
+        return res.send(response(baseResponse.SUCCESS, patchResponse));
     }
 };
 
