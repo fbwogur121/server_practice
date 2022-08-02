@@ -97,7 +97,7 @@ exports.getUserById = async function (req, res) {
     } else {
         // check ID empty and length
         if (!userId) return res.send(errResponse(baseResponse.Empty_ID));
-        IF (userId.length > 20) return res.send(response(baseResponse.LENGTH_ID));
+        if (userId.length > 20) return res.send(response(baseResponse.LENGTH_ID));
 
         // check ID status
         const isIDActive = await userProvider.idActiveCheck(userId);
