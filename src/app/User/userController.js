@@ -32,12 +32,12 @@ exports.postUsers = async function (req, res) {
     const {id, password, email, name, nickname, addressIdx} = req.body;
 
     // 빈 값 체크
-    if (!id) return res.send(errResponse(baseResponse.Empty_ID));
-    if (!password) return res.send(errResponse(baseResponse.Empty_PASSWORD));
-    if (!email) return res.send(errResponse(baseResponse.Empty_EMAIL));
-    if (!name) return res.send(errResponse(baseResponse.Empty_NAME));
-    if (!nickname) return res.send(errResponse(baseResponse.Empty_NICKNAME));
-    if (!addressIdx) return res.send(errResponse(baseResponse.Empty_ADDRESSIDX));
+    if (!id) return res.send(errResponse(baseResponse.EMPTY_ID));
+    if (!password) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
+    if (!email) return res.send(errResponse(baseResponse.EMPTY_EMAIL));
+    if (!name) return res.send(errResponse(baseResponse.EMPTY_NAME));
+    if (!nickname) return res.send(errResponse(baseResponse.EMPTY_NICKNAME));
+    if (!addressIdx) return res.send(errResponse(baseResponse.EMPTY_ADDRESSIDX));
 
     // 길이 체크
     if (id.length > 20) return res.send(errResponse(baseResponse.LENGTH_ID));
@@ -93,10 +93,10 @@ exports.getUserById = async function (req, res) {
     const userId = req.params.userId;
 
     if (userIdFromJWT != userId) {
-        return res.send(errResponse(baseResponse.NOT_MACHED_TOKEN_ID));
+        return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
     } else {
         // check ID empty and length
-        if (!userId) return res.send(errResponse(baseResponse.Empty_ID));
+        if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
         if (userId.length > 20) return res.send(response(baseResponse.LENGTH_ID));
 
         // check ID status

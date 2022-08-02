@@ -1,12 +1,12 @@
 module.exports = {
 
     // // Success
-    // SUCCESS : { "isSuccess": true, "code": 100, "message":"성공" },
+    // SUCCESS : { "isSuccess": false, "code": 100, "message":"성공" },
     
     // // Common
     // TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
     // TOKEN_VERIFICATION_FAILURE : { "isSuccess": false, "code": 3000, "message":"JWT 토큰 검증 실패" },
-    // TOKEN_VERIFICATION_SUCCESS : { "isSuccess": true, "code": 1001, "message":"JWT 토큰 검증 성공" }, // ?
+    // TOKEN_VERIFICATION_SUCCESS : { "isSuccess": false, "code": 1001, "message":"JWT 토큰 검증 성공" }, // ?
 
     // //Request error
     // SIGNUP_EMAIL_EMPTY : { "isSuccess": false, "code": 2001, "message":"이메일을 입력해주세요" },
@@ -51,23 +51,26 @@ module.exports = {
     SUCCESS: { isSuccess: true, code: 200, message: "Successed" },
 
     // 3xx : form validation error
-    EMPTY_ID: { isSuccess: true, code: 300, message: "ID is required." },
-    EMPTY_PASSWORD: { isSuccess: true, code: 301, message: "Password is required." },
-    EMPTY_NAME: { isSuccess: true, code: 302, message: "User name is required." },
-    EMPTY_NICKNAME: { isSuccess: true, code: 303, message: "User nickname is required." },
-    EMPTY_ADDRESSIDX: { isSuccess: true, code: 304, message: "AddressIdx is required." },
-    EMPTY_ADDRESSTYPE: { isSuccess: true, code: 305, message: "Address type is required." },
-    EMPTY_INFO_TO_UPDATE: { isSuccess: true, code: 306, message: "There is no info to update." },
-    EMPTY_TITLE: { isSuccess: true, code: 307, message: "Title is required." },
-    EMPTY_CATEGORYIDX: { isSuccess: true, code: 308, message: "CategoryIdx is required." },
-    EMPTY_CONTENT: { isSuccess: true, code: 309, message: "Content is required." },
-    EMPTY_SEARCH_RANGE: { isSuccess: true, code: 310, message: "Range is required." },
+    EMPTY_ID: { isSuccess: false, code: 300, message: "ID is required." },
+    EMPTY_PASSWORD: { isSuccess: false, code: 301, message: "Password is required." },
+    EMPTY_EMAIL: { isSuccess: false, code: 301, message: "EMAIL is required." },
+    EMPTY_NAME: { isSuccess: false, code: 302, message: "User name is required." },
+    EMPTY_NICKNAME: { isSuccess: false, code: 303, message: "User nickname is required." },
+    EMPTY_ADDRESSIDX: { isSuccess: false, code: 304, message: "AddressIdx is required." },
+    EMPTY_ADDRESSTYPE: { isSuccess: false, code: 305, message: "Address type is required." },
+    EMPTY_INFO_TO_UPDATE: { isSuccess: false, code: 306, message: "There is no info to update." },
+    EMPTY_TITLE: { isSuccess: false, code: 307, message: "Title is required." },
+    EMPTY_CATEGORYIDX: { isSuccess: false, code: 308, message: "CategoryIdx is required." },
+    EMPTY_CONTENT: { isSuccess: false, code: 309, message: "Content is required." },
+    EMPTY_SEARCH_RANGE: { isSuccess: false, code: 310, message: "Range is required." },
 
-    LENGTH_ID: { isSuccess: true, code: 307, message: "User ID should be shorter then 20 charaters." },
-    LENGTH_PASSWORD: { isSuccess: true, code: 308, message: "User password should be longer than 6 and shorter then 20 charaters." },
-    LENGTH_NAME: { isSuccess: true, code: 309, message: "User name should be shorter then 24 charaters." },
-    LENGTH_NICKNAME: { isSuccess: true, code: 310, message: "User name should be shorter then 24 charaters." },
-    LENGTH_PHOTO: { isSuccess: true, code: 310, message: "Photos can be uploaded less than 10 photos" },
+    LENGTH_ID: { isSuccess: false, code: 307, message: "User ID should be shorter then 20 charaters." },
+    LENGTH_PASSWORD: { isSuccess: false, code: 308, message: "User password should be longer than 6 and shorter then 20 charaters." },
+    LENGTH_NAME: { isSuccess: false, code: 309, message: "User name should be shorter then 24 charaters." },
+    LENGTH_NICKNAME: { isSuccess: false, code: 310, message: "User name should be shorter then 24 charaters." },
+    LENGTH_PHOTO: { isSuccess: false, code: 310, message: "Photos can be uploaded less than 10 photos" },
+
+    SIGNUP_EMAIL_ERROR_TYPE : { "isSuccess": false, "code": 2003, "message":"이메일을 형식을 정확하게 입력해주세요." },
 
     // 4xx : value validation error
     REDUNDANT_ID: { isSuccess: false, code: 401, message: "It is a redundant ID." },
