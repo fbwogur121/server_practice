@@ -12,32 +12,38 @@ const {emit} = require("nodemon");
  * API Name : 테스트 API
  * [GET] /app/test
  */
-exports.getTest = async function (req, res) {
-    console.log('test');
-    console.log('test2');
-    console.log('test3');
-    return res.send(response(baseResponse.SUCCESS))
-}
+// exports.getTest = async function (req, res) {
+//     console.log('test');
+//     console.log('test2');
+//     console.log('test3');
+//     return res.send(response(baseResponse.SUCCESS))
+// }
 
 /**
  * API No. 1
- * API Name : 유저 생성 (회원가입) API
+ * API Name : sign in
  * [POST] /app/users
  */
 exports.postUsers = async function (req, res) {
 
     /**
-     * Body: email, password, nickname
+     * Body: id, password, name, nickname, addressIdx, subaddressIdx
      */
-    const {email, password, nickname} = req.body;
+    const {id, password, email, name, nickname, addressIdx} = req.body;
 
     // 빈 값 체크
-    if (!email)
-        return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));
+    if (!id) return res.send(errResponse(baseResponse.Empty_ID));
+    if (!password) return res.send(errResponse(baseResponse.Empty_PASSWORD));
+    if (!email) return res.send(errResponse(baseResponse.Empty_EMAIL));
+    if (!name) return res.send(errResponse(baseResponse.Empty_NAME));
+    if (!nickname) return res.send(errResponse(baseResponse.Empty_NICKNAME));
+    if (!addressIdx) return res.send(errResponse(baseResponse.Empty_ADDRESSIDX));
 
     // 길이 체크
-    if (email.length > 30)
-        return res.send(response(baseResponse.SIGNUP_EMAIL_LENGTH));
+    if (id.length > 20) return res.send(errResponse(baseResponse.LENGTH_ID));
+    if (password.length > 20 || password.length < 6) return res.send(errResponse(baseResponse.LENGTH_PASSWORD));
+    if (name.length > 30) return res.send(errResponse(baseResponse.LENGTH_NAME));
+    if (nickname.length > 30) return res.send(errResponse(baseResponse.LENGTH_NICKNAME));
 
     // 형식 체크 (by 정규표현식)
     if (!regexEmail.test(email))
@@ -45,12 +51,7 @@ exports.postUsers = async function (req, res) {
 
     // 기타 등등 - 추가하기
 
-
-    const signUpResponse = await userService.createUser(
-        email,
-        password,
-        nickname
-    );
+    const signUpResponse = await userService.createUser(id, password, email, name, nickname, addressIdx);
 
     return res.send(signUpResponse);
 };
@@ -84,16 +85,28 @@ exports.getUsers = async function (req, res) {
  * [GET] /app/users/{userId}
  */
 exports.getUserById = async function (req, res) {
-
     /**
      * Path Variable: userId
      */
+
+    const userIdFromJWT = req.verifiedToken.userId;
     const userId = req.params.userId;
 
-    if (!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
+    if (userIdFromJWT != userId) {
+        return res.send(errResponse(baseResponse.NOT_MACHED_TOKEN_ID));
+    } else {
+        // check ID empty and length
+        if (!userId) return res.send(errResponse(baseResponse.Empty_ID));
+        IF (userId.length > 20) return res.send(response(baseResponse.LENGTH_ID));
 
-    const userByUserId = await userProvider.retrieveUser(userId);
-    return res.send(response(baseResponse.SUCCESS, userByUserId));
+        // check ID status
+        const isIDActive = await userProvider.idActiveCheck(userId);
+        if (!isIDActive.active) return res.send(errResponse(baseResponse.NOT_EXIST_ID));
+
+        const userByUserId = await userProvider.retrieveUser(userId);
+        return res.send(response(baseResponse.SUCCESS, userByUserId));
+    }
+
 };
 
 
