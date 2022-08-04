@@ -5,6 +5,9 @@ module.exports = function (app) {
     // 1. Sign up
     app.post("/app/users", user.postUsers);
 
+    // 1.5. 
+    app.get("/app/users", user.getUsers);
+
     // 2. Get a user info
     app.get("/app/users/:userId", user.getUserById);
 
