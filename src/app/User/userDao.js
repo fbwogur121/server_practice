@@ -1,7 +1,7 @@
 // 모든 유저 조회
 async function selectUser(connection) {
   const selectUserListQuery = `
-                SELECT userId, userNickname 
+                SELECT userId, userNickName 
                 FROM User;
                 `;
   const [userRows] = await connection.query(selectUserListQuery);
@@ -11,7 +11,7 @@ async function selectUser(connection) {
 // 이메일로 회원 조회
 async function selectUserId(connection, userId) {
   const selectUserIdQuery = `
-                SELECT userId, userNickname 
+                SELECT userId, userNickName 
                 FROM User 
                 WHERE userId = ?;
                 `;
@@ -166,9 +166,8 @@ async function selectUserLocation(connection, userIdx) {
 
 module.exports = {
   selectUser,
-
-  selectActiveId,
   selectUserId,
+  selectActiveId,
   selectActiveNickname,
   selectCountFromAddress1,
   insertUserInfo,
