@@ -46,11 +46,11 @@ exports.getUserById = async function (req, res) {
      * Path Variable: userId
      */
 
-    const userIdFromJWT = req.verifiedToken.userId;
+    //const userIdFromJWT = req.verifiedToken.userId;
     const userId = req.query.userId;
 
     // jwt
-    if (userIdFromJWT != userId) {
+    if (!userId) {
         return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
     } else {
         // check ID empty and length
