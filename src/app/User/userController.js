@@ -7,17 +7,17 @@
 // const regexEmail = require("regex-email");
 // const {emit} = require("nodemon");
 
-// /**
-//  * API No. 0
-//  * API Name : 테스트 API
-//  * [GET] /app/test
-//  */
-// exports.getTest = async function (req, res) {
-//     console.log('test');
-//     console.log('test2');
-//     console.log('test3');
-//     return res.send(response(baseResponse.SUCCESS))
-// }
+/**
+ * API No. 0
+ * API Name : 테스트 API
+ * [GET] /app/test
+ */
+exports.getTest = async function (req, res) {
+    console.log('test');
+    console.log('test2');
+    console.log('test3');
+    return res.send(response(baseResponse.SUCCESS))
+}
 
 // /**
 //  * API No. 1
@@ -221,8 +221,8 @@ exports.postUsers = async function (req, res) {
 
     // check empty value
     if (!id) return res.send(errResponse(baseResponse.EMPTY_ID));
-    if (!password) return res.send(errResponse(baseResponse.EMPTY_ID));
-    if (!name) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
+    if (!password) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
+    if (!name) return res.send(errResponse(baseResponse.EMPTY_NAME));
     if (!nickname) return res.send(errResponse(baseResponse.EMPTY_NICKNAME));
     if (!addressIdx) return res.send(errResponse(baseResponse.EMPTY_ADDRESSIDX));
 
@@ -246,7 +246,7 @@ exports.getUserById = async function (req, res) {
     /**
      * Path Variable: userId
      */
-
+    console.log(1);
     const userIdFromJWT = req.verifiedToken.userId;
     const userId = req.params.userId;
 
