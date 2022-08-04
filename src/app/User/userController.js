@@ -65,7 +65,7 @@ exports.getUserById = async function (req, res) {
     //     const userByUserId = await userProvider.retrieveUser(userId);
     //     return res.send(response(baseResponse.SUCCESS, userByUserId));
     // }
-
+    console.log("getuserbyid");
     const userId = req.query.userId;
     if (!userId) {
         const userListResult = await userProvider.retrieveUserList();
