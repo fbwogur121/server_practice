@@ -106,8 +106,8 @@ module.exports = {
     SERVER_ERROR: { isSuccess: false, code: 501, message: "Server Error" },
 
     // tocken error
-    TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
-    TOKEN_VERIFICATION_FAILURE : { "isSuccess": false, "code": 3000, "message":"JWT 토큰 검증 실패" },
-    TOKEN_VERIFICATION_SUCCESS : { "isSuccess": false, "code": 1001, "message":"JWT 토큰 검증 성공" },
+    // TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
+    // TOKEN_VERIFICATION_FAILURE : { "isSuccess": false, "code": 3000, "message":"JWT 토큰 검증 실패" },
+    // TOKEN_VERIFICATION_SUCCESS : { "isSuccess": false, "code": 1001, "message":"JWT 토큰 검증 성공" },
  
 }
