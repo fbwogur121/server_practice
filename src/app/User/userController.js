@@ -4,7 +4,7 @@ const userService = require("../../app/User/userService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
 
-const regexEmail = require("regex-email");
+const regexEmail = require("regex-userEmail");
 const {emit} = require("nodemon");
 
 /**
@@ -34,7 +34,7 @@ exports.postUsers = async function (req, res) {
     // 빈 값 체크
     if (!id) return res.send(errResponse(baseResponse.EMPTY_ID));
     if (!password) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
-    //if (!email) return res.send(errResponse(baseResponse.EMPTY_EMAIL));
+    //if (!userEmail) return res.send(errResponse(baseResponse.EMPTY_EMAIL));
     if (!name) return res.send(errResponse(baseResponse.EMPTY_NAME));
     if (!nickname) return res.send(errResponse(baseResponse.EMPTY_NICKNAME));
     if (!addressIdx) return res.send(errResponse(baseResponse.EMPTY_ADDRESSIDX));
@@ -46,12 +46,12 @@ exports.postUsers = async function (req, res) {
     if (nickname.length > 30) return res.send(errResponse(baseResponse.LENGTH_NICKNAME));
 
     // 형식 체크 (by 정규표현식)
-    if (!regexEmail.test(email))
+    if (!regexEmail.test(userEmail))
         return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
 
     // 기타 등등 - 추가하기
 
-    const signUpResponse = await userService.createUser(id, password, email, name, nickname, addressIdx);
+    const signUpResponse = await userService.createUser(id, password, userEmail, name, nickname, addressIdx);
 
     return res.send(signUpResponse);
 };
@@ -64,17 +64,17 @@ exports.postUsers = async function (req, res) {
 exports.getUsers = async function (req, res) {
 
     /**
-     * Query String: email
+     * Query String: userEmail
      */
-    const email = req.query.email;
+    const userEmail = req.query.userEmail;
 
-    if (!email) {
+    if (!userEmail) {
         // 유저 전체 조회
         const userListResult = await userProvider.retrieveUserList();
         return res.send(response(baseResponse.SUCCESS, userListResult));
     } else {
         // 유저 검색 조회
-        const userListByEmail = await userProvider.retrieveUserList(email);
+        const userListByEmail = await userProvider.retrieveUserList(userEmail);
         return res.send(response(baseResponse.SUCCESS, userListByEmail));
     }
 };

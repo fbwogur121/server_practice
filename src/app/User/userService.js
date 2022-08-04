@@ -13,10 +13,10 @@ const {connect} = require("http2");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리
 
-exports.createUser = async function (email, password, nickname) {
+exports.createUser = async function (userEmail, password, nickname) {
     try {
         // 이메일 중복 확인
-        const emailRows = await userProvider.emailCheck(email);
+        const emailRows = await userProvider.emailCheck(userEmail);
         if (emailRows.length > 0)
             return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
 
@@ -26,7 +26,7 @@ exports.createUser = async function (email, password, nickname) {
             .update(password)
             .digest("hex");
 
-        const insertUserInfoParams = [email, hashedPassword, nickname];
+        const insertUserInfoParams = [userEmail, hashedPassword, nickname];
 
         const connection = await pool.getConnection(async (conn) => conn);
 
@@ -44,13 +44,13 @@ exports.createUser = async function (email, password, nickname) {
 
 
 // TODO: After 로그인 인증 방법 (JWT)
-exports.postSignIn = async function (email, password) {
+exports.postSignIn = async function (userEmail, password) {
     try {
         // 이메일 여부 확인
-        const emailRows = await userProvider.emailCheck(email);
+        const emailRows = await userProvider.emailCheck(userEmail);
         if (emailRows.length < 1) return errResponse(baseResponse.SIGNIN_EMAIL_WRONG);
 
-        const selectEmail = emailRows[0].email
+        const selectEmail = emailRows[0].userEmail
 
         // 비밀번호 확인
         const hashedPassword = await crypto
@@ -66,7 +66,7 @@ exports.postSignIn = async function (email, password) {
         }
 
         // 계정 상태 확인
-        const userInfoRows = await userProvider.accountCheck(email);
+        const userInfoRows = await userProvider.accountCheck(userEmail);
 
         if (userInfoRows[0].status === "INACTIVE") {
             return errResponse(baseResponse.SIGNIN_INACTIVE_ACCOUNT);
