@@ -47,7 +47,7 @@ exports.getUserById = async function (req, res) {
      */
 
     const userIdFromJWT = req.verifiedToken.userId;
-    const userId = req.params.userId;
+    const userId = req.query.userId;
 
     // jwt
     if (userIdFromJWT != userId) {
