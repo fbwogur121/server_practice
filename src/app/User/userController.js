@@ -46,25 +46,31 @@ exports.getUserById = async function (req, res) {
      * Path Variable: userId
      */
 
-    const userIdFromJWT = req.verifiedToken.userId;
+    //const userIdFromJWT = req.verifiedToken.userId;
+    // const userId = req.params.userId;
+    // console.log(userId);
+
+    // // jwt
+    // if (userIdFromJWT != userId) {
+    //     return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
+    // } else {
+    //     // check ID empty and length
+    //     if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
+    //     if (userId.length > 20) return res.send(response(baseResponse.LENGTH_ID));
+
+    //     // check ID status
+    //     const isIdActive = await userProvider.idActiveCheck(userId);
+    //     if (!isIdActive.active) return res.send(errResponse(baseResponse.NOT_EXIST_ID));
+
+    //     const userByUserId = await userProvider.retrieveUser(userId);
+    //     return res.send(response(baseResponse.SUCCESS, userByUserId));
+    // }
     const userId = req.params.userId;
-    console.log(userId);
 
-    // jwt
-    if (userIdFromJWT != userId) {
-        return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
-    } else {
-        // check ID empty and length
-        if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
-        if (userId.length > 20) return res.send(response(baseResponse.LENGTH_ID));
+    if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
 
-        // check ID status
-        const isIdActive = await userProvider.idActiveCheck(userId);
-        if (!isIdActive.active) return res.send(errResponse(baseResponse.NOT_EXIST_ID));
-
-        const userByUserId = await userProvider.retrieveUser(userId);
-        return res.send(response(baseResponse.SUCCESS, userByUserId));
-    }
+    const userByUserId = await userProvider.retrieveUser(userId);
+    return res.send(response(baseResponse.SUCCESS, userByUserId));
 };
 
 /**
