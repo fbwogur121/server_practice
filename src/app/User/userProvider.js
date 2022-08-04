@@ -63,20 +63,3 @@ exports.getUserLocation = async function (userIdx, addressType) {
 
     return locationResult[0][0][addressType];
 };
-
-exports.retrieveUserList = async function (userId) {
-    if (!userId) {
-      const connection = await pool.getConnection(async (conn) => conn);
-      const userListResult = await userDao.selectUser(connection);
-      connection.release();
-  
-      return userListResult;
-  
-    } else {
-      const connection = await pool.getConnection(async (conn) => conn);
-      const userListResult = await userDao.selectUserId(connection, userId);
-      connection.release();
-  
-      return userListResult;
-    }
-  };
