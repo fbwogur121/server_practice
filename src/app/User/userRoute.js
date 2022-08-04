@@ -6,7 +6,7 @@ module.exports = function (app) {
     app.post("/app/users", user.postUsers);
 
     // 2. Get a user info
-    app.get("/app/users/:userId", iwt, user.getUserById);
+    app.get("/app/users/:userId", user.getUserById);
 
     // 3. Update a user info
     app.patch("/app/users/:userId", iwt, user.patchUsers);
