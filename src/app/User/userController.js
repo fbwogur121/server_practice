@@ -253,7 +253,7 @@ exports.getUserById = async function (req, res) {
     /**
      * Path Variable: userId
      */
-     console.log('test');
+    console.log('test');
     const userIdFromJWT = req.verifiedToken.userId;
     const userId = req.params.userId;
 

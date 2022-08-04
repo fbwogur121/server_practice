@@ -12,7 +12,7 @@
 // async function selectUserEmail(connection, email) {
 //   const selectUserEmailQuery = `
 //                 SELECT email, nickname 
-//                 FROM User 
+//                 FROM UserInfo 
 //                 WHERE email = ?;
 //                 `;
 //   const [emailRows] = await connection.query(selectUserEmailQuery, email);
@@ -90,8 +90,6 @@
 //   selectUserAccount,
 //   updateUserInfo,
 // };
-
-
 
 // is exist a user by ID
 async function selectActiveId(connection, id) {
