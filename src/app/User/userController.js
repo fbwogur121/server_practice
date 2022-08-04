@@ -208,6 +208,13 @@ const { response, errResponse } = require("../../../config/response");
 const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
 
+exports.getTest = async function (req, res) {
+    console.log('test');
+    console.log('test2');
+    console.log('test3');
+    return res.send(response(baseResponse.SUCCESS))
+}
+
 /**
  *  API No.1
  *  - sign up
