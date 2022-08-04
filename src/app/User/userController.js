@@ -21,7 +21,7 @@ exports.getTest = async function (req, res) {
 
 /**
  * API No. 1
- * API Name : sign in
+ * API Name : sign in 유저 생성(회원가입)
  * [POST] /app/users
  */
 exports.postUsers = async function (req, res) {
@@ -29,12 +29,12 @@ exports.postUsers = async function (req, res) {
     /**
      * Body: id, password, name, nickname, addressIdx, subaddressIdx
      */
-    const {id, password, email, name, nickname, addressIdx} = req.body;
+    const {id, password, name, nickname, addressIdx} = req.body;
 
     // 빈 값 체크
     if (!id) return res.send(errResponse(baseResponse.EMPTY_ID));
     if (!password) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
-    if (!email) return res.send(errResponse(baseResponse.EMPTY_EMAIL));
+    //if (!email) return res.send(errResponse(baseResponse.EMPTY_EMAIL));
     if (!name) return res.send(errResponse(baseResponse.EMPTY_NAME));
     if (!nickname) return res.send(errResponse(baseResponse.EMPTY_NICKNAME));
     if (!addressIdx) return res.send(errResponse(baseResponse.EMPTY_ADDRESSIDX));
@@ -116,7 +116,7 @@ exports.getUserById = async function (req, res) {
  * API No. 4
  * API Name : 로그인 API
  * [POST] /app/login
- * body : email, passsword 
+ * body : id, passsword 
  */
 exports.login = async function (req, res) {
 
@@ -140,7 +140,7 @@ exports.login = async function (req, res) {
  * API Name : 회원 정보 수정 API + JWT + Validation
  * [PATCH] /app/users/:userId
  * path variable : userId
- * body : nickname
+ * body : nickname, password, addressIdx, subAddressIdx, status
  */
 exports.patchUsers = async function (req, res) {
 
