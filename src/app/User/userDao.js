@@ -5,7 +5,7 @@ async function selectActiveId(connection, id) {
                     exists(
                         select status 
                         from User 
-                        where userId = ? and status = 'a'
+                        where userId = ? and status = 'Y'
                         ) active;
                   `;
   const [statusRows] = await connection.query(selectUserStatusQuery, id);
@@ -18,7 +18,7 @@ async function selectActiveNickname(connection, nickname) {
                     exists(
                         select status 
                         from User 
-                        where userNickname = ? and status = 'a'
+                        where userNickname = ? and status = 'Y'
                         ) active;
                   `;
   const [statusRows] = await connection.query(selectUserStatusQuery, nickname);
