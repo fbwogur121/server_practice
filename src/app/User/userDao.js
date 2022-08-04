@@ -1,3 +1,24 @@
+// 모든 유저 조회
+async function selectUser(connection) {
+  const selectUserListQuery = `
+                SELECT userId, userNickname 
+                FROM User;
+                `;
+  const [userRows] = await connection.query(selectUserListQuery);
+  return userRows;
+}
+
+// 이메일로 회원 조회
+async function selectUserId(connection, userId) {
+  const selectUserIdQuery = `
+                SELECT userId, userNickname 
+                FROM User 
+                WHERE userId = ?;
+                `;
+  const [userIdRows] = await connection.query(selectUserIdQuery, userId);
+  return userIdRows;
+}
+
 // is exist a user by ID
 async function selectActiveId(connection, id) {
   const selectUserStatusQuery = `
@@ -144,7 +165,10 @@ async function selectUserLocation(connection, userIdx) {
 }
 
 module.exports = {
+  selectUser,
+
   selectActiveId,
+  selectUserId,
   selectActiveNickname,
   selectCountFromAddress1,
   insertUserInfo,

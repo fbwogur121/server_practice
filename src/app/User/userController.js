@@ -37,6 +37,29 @@ exports.postUsers = async function (req, res) {
 };
 
 /**
+ * API No. 1.5
+ * API Name : 유저 조회 API (+ 아이디로 검색 조회)
+ * [GET] /app/users
+ */
+ exports.getUsers = async function (req, res) {
+
+    /**
+     * Query String: userId
+     */
+    const userId = req.query.userId;
+
+    if (!userId) {
+        // 유저 전체 조회
+        const userListResult = await userProvider.retrieveUserList();
+        return res.send(response(baseResponse.SUCCESS, userListResult));
+    } else {
+        // 유저 검색 조회
+        const userListByuserId = await userProvider.retrieveUserList(userId);
+        return res.send(response(baseResponse.SUCCESS, userListByuserId));
+    }
+};
+
+/**
  * API No. 2
  * - Get a user
  * [GET] /app/users/{userId}
@@ -45,26 +68,6 @@ exports.getUserById = async function (req, res) {
     /**
      * Path Variable: userId
      */
-
-    //const userIdFromJWT = req.verifiedToken.userId;
-    // const userId = req.params.userId;
-    // console.log(userId);
-
-    // // jwt
-    // if (userIdFromJWT != userId) {
-    //     return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
-    // } else {
-    //     // check ID empty and length
-    //     if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
-    //     if (userId.length > 20) return res.send(response(baseResponse.LENGTH_ID));
-
-    //     // check ID status
-    //     const isIdActive = await userProvider.idActiveCheck(userId);
-    //     if (!isIdActive.active) return res.send(errResponse(baseResponse.NOT_EXIST_ID));
-
-    //     const userByUserId = await userProvider.retrieveUser(userId);
-    //     return res.send(response(baseResponse.SUCCESS, userByUserId));
-    // }
     const userId = req.params.userId;
 
     if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
