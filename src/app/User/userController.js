@@ -46,14 +46,12 @@ exports.getUserById = async function (req, res) {
      * Path Variable: userId
      */
 
-    //const userIdFromJWT = req.verifiedToken.userId;
+    const userIdFromJWT = req.verifiedToken.userId;
     const userId = req.query.userId;
 
     // jwt
-    if (!userId) {
-        //유저전체 조회
-        const userListResult = await userProvider.retrieveUser(userId);
-        return res.send(response(baseResponse.SUCCESS, userListResult));
+    if (userIdFromJWT != userId) {
+        return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
     } else {
         // check ID empty and length
         if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
