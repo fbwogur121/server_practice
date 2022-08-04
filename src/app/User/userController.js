@@ -51,7 +51,9 @@ exports.getUserById = async function (req, res) {
 
     // jwt
     if (!userId) {
-        return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
+        //유저전체 조회
+        const userListResult = await userProvider.retrieveUser(userId);
+        return res.send(response(baseResponse.SUCCESS, userListResult));
     } else {
         // check ID empty and length
         if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
