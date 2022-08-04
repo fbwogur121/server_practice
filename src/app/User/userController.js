@@ -47,7 +47,8 @@ exports.getUserById = async function (req, res) {
      */
 
     const userIdFromJWT = req.verifiedToken.userId;
-    const userId = req.query.userId;
+    const userId = req.params.userId;
+    console.log(userId);
 
     // jwt
     if (userIdFromJWT != userId) {
@@ -87,10 +88,10 @@ exports.patchUsers = async function (req, res) {
 
     // jwt
     if (userIdFromJWT != userId) {
-        return res.send(errResponse(baseResponse.TOKEN_ID_NOT_MATCH));
+        return res.send(errResponse(baseResponse.NOT_MATCHED_TOKEN_ID));
     } else {
         const patchResponse = {};
-        if (!(nickname || password || addressIdx || subAddressIdx || status)) return res.send(errResponse(baseResponse.EMPTY_INFO_TO_PATCH));
+        if (!(nickname || password || addressIdx || subAddressIdx || status)) return res.send(errResponse(baseResponse.EMPTY_INFO_TO_UPDATE));
         if (nickname) {
             const patchNicknameResponse = await userService.patchNickname(userId, nickname);
             patchResponse.nickname = patchNicknameResponse;
