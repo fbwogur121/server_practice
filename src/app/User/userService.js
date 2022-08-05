@@ -71,7 +71,7 @@ exports.postSignIn = async function (email, password) {
 
         const selectUserPasswordParams = [selectEmail, hashedPassword];
 
-        console.log("3-6");
+        console.log("3-4");
         // 계정 상태 확인
         const userInfoRows = await userProvider.accountCheck(id);
         if (userInfoRows[0].status === "N") {
@@ -80,11 +80,11 @@ exports.postSignIn = async function (email, password) {
             return errResponse(baseResponse.SIGNIN_WITHDRAWAL_ACCOUNT);
         }
 
-        console.log("3-4");
+        console.log("3-5");
         // check PW
         const passwordRows = await userProvider.passwordCheck(userInfoRows[0].userId);
 
-        console.log("3-5");
+        console.log("3-6");
         if (passwordRows[0].userPw !== hashedPassword) {
             return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
         }
