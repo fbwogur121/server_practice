@@ -13,7 +13,7 @@ const { connect } = require("http2");
 
 // Sign up
 exports.createUser = async function (id, password, name, email, nickname, addressIdx, subAddressIdx) {
-    
+    console.log("kkk");
     try {
         // check redundatn ID
         const isIdActive = await userProvider.idActiveCheck(id);
