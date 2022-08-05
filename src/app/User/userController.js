@@ -16,12 +16,13 @@ exports.postUsers = async function (req, res) {
     /**
      * Body: id, password, name, nickname, addressIdx, subAddressIdx
      */
-    const { id, password, name, nickname, addressIdx, subAddressIdx } = req.body;
+    const { id, password, name, email, nickname, addressIdx, subAddressIdx } = req.body;
 
     // check empty value
     if (!id) return res.send(errResponse(baseResponse.EMPTY_ID));
     if (!password) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
     if (!name) return res.send(errResponse(baseResponse.EMPTY_NAME));
+    if (!email) return res.send(errResponse(baseResponse.EMPTY_EMAIL));
     if (!nickname) return res.send(errResponse(baseResponse.EMPTY_NICKNAME));
     if (!addressIdx) return res.send(errResponse(baseResponse.EMPTY_ADDRESSIDX));
     if (!subAddressIdx) return res.send(errResponse(baseResponse.EMPTY_SUBADDRESSIDX));
@@ -32,7 +33,7 @@ exports.postUsers = async function (req, res) {
     if (name.length > 24) return res.send(errResponse(baseResponse.LENGTH_NAME));
     if (nickname.length > 24) return res.send(errResponse(baseResponse.LENGTH_NICKNAME));
 
-    const signUpResponse = await userService.createUser(id, password, name, nickname, addressIdx, subAddressIdx);
+    const signUpResponse = await userService.createUser(id, password, name, email, nickname, addressIdx, subAddressIdx);
 
     return res.send(signUpResponse);
 };

@@ -46,6 +46,20 @@ async function selectActiveNickname(connection, nickname) {
   return statusRows;
 }
 
+// for checking redundant email
+async function selectActiveNickname(connection, email) {
+  const selectUserStatusQuery = `
+                    select 
+                    exists(
+                        select status 
+                        from User 
+                        where userEmail = ? and status = 'Y'
+                        ) active;
+                  `;
+  const [statusRows] = await connection.query(selectUserStatusQuery, email);
+  return statusRows;
+}
+
 // get range of address
 async function selectCountFromAddress1(connection) {
   const selectCountAddress1Query = `
@@ -59,8 +73,8 @@ async function selectCountFromAddress1(connection) {
 // create a user
 async function insertUserInfo(connection, insertUserInfoParams) {
   const insertUserInfoQuery = `
-          INSERT INTO User(userId, userPw, userName, userNickname, address)
-          VALUES (?, ?, ?, ?, ?);
+          INSERT INTO User(userId, userPw, userName, userEmail, userNickname, address, subaddress)
+          VALUES (?, ?, ?, ?, ?, ?, ?);
       `;
   const insertUserInfoRow = await connection.query(insertUserInfoQuery, insertUserInfoParams);
   return insertUserInfoRow;

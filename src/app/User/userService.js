@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const { connect } = require("http2");
 
 // Sign up
-exports.createUser = async function (id, password, name, nickname, addressIdx, subAddressIdx) {
+exports.createUser = async function (id, password, name, email, nickname, addressIdx, subAddressIdx) {
     try {
         // check redundatn ID
         const isIdActive = await userProvider.idActiveCheck(id);
@@ -24,6 +24,10 @@ exports.createUser = async function (id, password, name, nickname, addressIdx, s
 
         // hash PW
         const hashedPassword = await crypto.createHash("sha512").update(password).digest("hex");
+
+        // check redudant email
+        const isEmailActive = await userProvider.emailActiveCheck(email);
+        if (isEmailActive.active) return errResponse(baseResponse.REDUNDANT_EMAIL);
 
         // check address range
         const addressCount = await userProvider.countAddress1();

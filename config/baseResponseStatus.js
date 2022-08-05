@@ -6,6 +6,7 @@ module.exports = {
     EMPTY_ID: { isSuccess: true, code: 300, message: "ID is required." },
     EMPTY_PASSWORD: { isSuccess: true, code: 301, message: "Password is required." },
     EMPTY_NAME: { isSuccess: true, code: 302, message: "User name is required." },
+    EMPTY_EMAIL: { isSuccess: true, code: 302, message: "User email is required." },
     EMPTY_NICKNAME: { isSuccess: true, code: 303, message: "User nickname is required." },
     EMPTY_ADDRESSIDX: { isSuccess: true, code: 304, message: "AddressIdx is required." },
     EMPTY_SUBADDRESSIDX: { isSuccess: true, code: 304, message: "subAddressIdx is required." },
@@ -25,6 +26,7 @@ module.exports = {
     // 4xx : value validation error
     REDUNDANT_ID: { isSuccess: false, code: 401, message: "It is a redundant ID." },
     REDUNDANT_NICKNAME: { isSuccess: false, code: 402, message: "It is a redundant nickname." },
+    REDUNDANT_EMAIL: { isSuccess: false, code: 402, message: "It is a redundant email." },
 
     OUT_OF_RANGE_ADDRESSIDX: { isSuccess: false, code: 403, message: "It is not in range of addressIdx." },
     OUT_OF_RANGE_ADDRESSTYPE: { isSuccess: false, code: 404, message: "Address type should be 'address' or 'subAddress'." },

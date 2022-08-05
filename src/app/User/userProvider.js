@@ -20,6 +20,16 @@ exports.nicknameActiveCheck = async function (nickname) {
     return userActive[0];
 };
 
+// check redudant userEmail
+exports.emailActiveCheck = async function (email) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const userActive = await userDao.selectActiveEmail(connection, email);
+    connection.release();
+
+    return userActive[0];
+};
+
+
 // check user status
 exports.accountCheck = async function (id) {
     const connection = await pool.getConnection(async (conn) => conn);
