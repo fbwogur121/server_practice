@@ -12,7 +12,7 @@ module.exports = function (app) {
     app.get("/app/users/:userId", user.getUserById);
 
     // 4. Update a user info
-    app.patch("/app/users/:userId", iwt, user.patchUsers);
+    app.patch("/app/users/:userId", user.patchUsers);
 
     // 5. Sign in
     app.post("/app/login", user.login);
