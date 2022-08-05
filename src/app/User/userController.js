@@ -136,18 +136,14 @@ exports.patchUsers = async function (req, res) {
  */
 exports.login = async function (req, res) {
     const { email, password } = req.body;
-    console.log("1");
     // check empty
     if (!email) return res.send(response(baseResponse.EMPTY_EMAIL));
     if (!password) return res.send(response(baseResponse.EMPTY_PASSWORD));
 
     // check length
-    console.log("2");
     if (password.length > 300 || password.length < 6) return res.send(response(baseResponse.LENGTH_PASSWORD));
 
-    console.log("3");
     const signInResponse = await userService.postSignIn(email, password);
 
-    console.log("4");
     return res.send(signInResponse);
 };

@@ -55,22 +55,18 @@ exports.createUser = async function (id, password, name, email, nickname, addres
 // login
 exports.postSignIn = async function (email, password) {
     try {
-        console.log("3-1");
         // 계정 상태 확인
         const emailRows = await userProvider.emailCheck(email);
         if (emailRows.length < 1) {
             return errResponse(baseResponse.NOT_EXIST_EMAIL);
         }
-        console.log("3-2");
         const selectEmail = emailRows[0].email;
 
-        console.log("3-3");
         // hash PW
         const hashedPassword = await crypto.createHash("sha512").update(password).digest("hex");
 
         const selectUserPasswordParams = [selectEmail, hashedPassword];
 
-        console.log("3-4");
         // 계정 상태 확인
         const userInfoRows = await userProvider.accountCheck2(email);
 
@@ -80,21 +76,15 @@ exports.postSignIn = async function (email, password) {
             return errResponse(baseResponse.USER_STATUS_WITHDRAWAL);
         }
 
-        console.log("3-5");
         // check PW
         const passwordRows = await userProvider.passwordCheck(userInfoRows[0].userId);
 
-        console.log("3-6");
-        console.log(passwordRows[0].userPw);
-        console.log(hashedPassword);
         if (passwordRows[0].userPw !== hashedPassword) {
             return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
         }
 
-        console.log("3-7");
         console.log(userInfoRows[0].userId) // DB의 userId
 
-        console.log("3-8");
         // create token
         let token = await jwt.sign(
             {
@@ -107,7 +97,6 @@ exports.postSignIn = async function (email, password) {
                 subject: "userInfo",
             }
         );
-        console.log("3-9");
         return response(baseResponse.SUCCESS, { userId: userInfoRows[0].userId, jwt: token });
     } catch (err) {
         logger.error(`App - postSignIn Service error\n: ${err.message} \n${JSON.stringify(err)}`);
