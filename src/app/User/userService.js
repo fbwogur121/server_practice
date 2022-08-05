@@ -115,25 +115,30 @@ exports.createUser = async function (id, password, name, email, nickname, addres
 
 exports.postSignIn = async function (email, password) {
     try {
+        console.log("3-1");
         // 이메일 여부 확인
         const emailRows = await userProvider.emailCheck(email);
         if (emailRows.length < 1) return errResponse(baseResponse.NOT_EXIST_EMAIL);
 
         const selectEmail = emailRows[0].email
 
+        console.log("3-2");
         // 비밀번호 확인
         const hashedPassword = await crypto
             .createHash("sha512")
             .update(password)
             .digest("hex");
 
+        console.log("3-3");
         const selectUserPasswordParams = [selectEmail, hashedPassword];
         const passwordRows = await userProvider.passwordCheck(selectUserPasswordParams);
 
+        console.log("3-4");
         if (passwordRows[0].password !== hashedPassword) {
             return errResponse(baseResponse.SIGNIN_PASSWORD_WRONG);
         }
 
+        console.log("3-5");
         // 계정 상태 확인
         const userInfoRows = await userProvider.accountCheck(email);
 
