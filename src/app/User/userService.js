@@ -43,7 +43,7 @@ exports.createUser = async function (id, password, name, email, nickname, addres
 
         console.log("6");
         // save hashedPW
-        const insertUserInfoParams = [id, hashedPassword, name, nickname, addressIdx, subAddressIdx];
+        const insertUserInfoParams = [id, hashedPassword, name, email, nickname, addressIdx, subAddressIdx];
 
         const connection = await pool.getConnection(async (conn) => conn);
 
