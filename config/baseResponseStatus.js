@@ -54,6 +54,8 @@ module.exports = {
     SAME_STATUS: { isSuccess: false, code: 421, message: "It's the same status." },
     SAME_CATEGORYIDX: { isSuccess: false, code: 422, message: "It's the same categoryIdx." },
 
+    SIGNUP_EMAIL_ERROR_TYPE : { isSuccess: false, code: 423, message:"It's the email error type." },
+
     // 5XX : server error such as Connection, Transaction ...
     DB_ERROR: { isSuccess: false, code: 500, message: "Database Error" },
     SERVER_ERROR: { isSuccess: false, code: 501, message: "Server Error" },

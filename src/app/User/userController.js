@@ -33,6 +33,10 @@ exports.postUsers = async function (req, res) {
     if (name.length > 24) return res.send(errResponse(baseResponse.LENGTH_NAME));
     if (nickname.length > 24) return res.send(errResponse(baseResponse.LENGTH_NICKNAME));
 
+    // 형식 체크 (by 정규표현식)
+    if (!regexEmail.test(email))
+        return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
+
     const signUpResponse = await userService.createUser(id, password, name, email, nickname, addressIdx, subAddressIdx);
 
     return res.send(signUpResponse);
