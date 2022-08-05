@@ -83,7 +83,7 @@ exports.getUserById = async function (req, res) {
  * - update user info
  * [PATCH] /app/users/:userId
  * path variable : userId
- * body : nickname, password, addressIdx, status
+ * body :  nickname, password, addressIdx, subAddressIdx, status
  */
 exports.patchUsers = async function (req, res) {
     // jwt - userId, path variable :userId
@@ -92,7 +92,7 @@ exports.patchUsers = async function (req, res) {
     const userId = req.params.userId;
 
     const { nickname, password, addressIdx, subAddressIdx, status } = req.body;
-
+    console.log(req.body);
     // check ID
     if (!userId) return res.send(errResponse(baseResponse.EMPTY_ID));
     if (userId.length > 20) return res.send(errResponse(baseResponse.LENGTH_ID));
