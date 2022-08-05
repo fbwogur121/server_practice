@@ -1,7 +1,7 @@
 const jwtMiddleware = require("../../../config/jwtMiddleware");
 const productProvider = require("../../app/Product/productProvider");
 const productService = require("../../app/Product/productService");
-const baseResponse = require("../../config/baseResponseStatus");
+const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
 
 const regexEmail = require("regex-email");
@@ -26,7 +26,7 @@ exports.postProduct = async function (req, res) {
     if(["address", "subAddress"].indexOf(addressType) < 0) return res.send(errResponse(baseResponse.OUT_OF_RANGE_ADDRESSTYPE));
     if(!price) savePrice = 0;
 
-    const productResponse = await productService.createProduct(userIdxFromJwt, photo, title, categoryIdx, savePrice, content,addressType);
+    const productResponse = await productService.createProduct(userIdxFromJwt, photo, title, categoryIdx, price, content, addressType);
 
     return res.send(productResponse);
 };
