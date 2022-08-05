@@ -144,7 +144,7 @@ async function selectUserEmail(connection, email) {
 async function updateUserNickname(connection, updateNicknameParams) {
   const updateUserNicknameQuery = `
         UPDATE User
-          SET userNickname = ?
+          SET userNickName = ?
           WHERE userId = ?;
           `;
   const updateNicknameResult = await connection.query(updateUserNicknameQuery, updateNicknameParams);
