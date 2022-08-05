@@ -122,7 +122,7 @@ async function selectUserAccount2(connection, email) {
   const selectUserAccountQuery = `
           SELECT status, userId, userIdx
           FROM User 
-          WHERE email = ?;
+          WHERE userEmail = ?;
           `;
   const selectUserAccountRow = await connection.query(selectUserAccountQuery, email);
   return selectUserAccountRow[0];
