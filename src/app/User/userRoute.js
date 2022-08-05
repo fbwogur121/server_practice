@@ -5,15 +5,15 @@ module.exports = function (app) {
     // 1. Sign up
     app.post("/app/users", user.postUsers);
 
-    // 1.5. 
+    // 2
     app.get("/app/users", user.getUsers);
 
-    // 2. Get a user info
+    // 3. Get a user info
     app.get("/app/users/:userId", user.getUserById);
 
-    // 3. Update a user info
+    // 4. Update a user info
     app.patch("/app/users/:userId", iwt, user.patchUsers);
 
-    // 4. Sign in
+    // 5. Sign in
     app.post("/app/login", user.login);
 };

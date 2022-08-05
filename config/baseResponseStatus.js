@@ -8,6 +8,7 @@ module.exports = {
     EMPTY_NAME: { isSuccess: true, code: 302, message: "User name is required." },
     EMPTY_NICKNAME: { isSuccess: true, code: 303, message: "User nickname is required." },
     EMPTY_ADDRESSIDX: { isSuccess: true, code: 304, message: "AddressIdx is required." },
+    EMPTY_SUBADDRESSIDX: { isSuccess: true, code: 304, message: "subAddressIdx is required." },
     EMPTY_ADDRESSTYPE: { isSuccess: true, code: 305, message: "Address type is required." },
     EMPTY_INFO_TO_UPDATE: { isSuccess: true, code: 306, message: "There is no info to update." },
     EMPTY_TITLE: { isSuccess: true, code: 307, message: "Title is required." },

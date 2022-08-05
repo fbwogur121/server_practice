@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const { connect } = require("http2");
 
 // Sign up
-exports.createUser = async function (id, password, name, nickname, addressIdx) {
+exports.createUser = async function (id, password, name, nickname, addressIdx, subAddressIdx) {
     try {
         // check redundatn ID
         const isIdActive = await userProvider.idActiveCheck(id);
@@ -28,9 +28,11 @@ exports.createUser = async function (id, password, name, nickname, addressIdx) {
         // check address range
         const addressCount = await userProvider.countAddress1();
         if (addressIdx > addressCount.count || addressIdx < 0) return errResponse(baseResponse.OUT_OF_RANGE_ADDRESSIDX);
+        const subAddressCount = await userProvider.countAddress1();
+        if (subAddressIdx > addressCount.count || subAddressIdx < 0) return errResponse(baseResponse.OUT_OF_RANGE_ADDRESSIDX);
 
         // save hashedPW
-        const insertUserInfoParams = [id, hashedPassword, name, nickname, addressIdx];
+        const insertUserInfoParams = [id, hashedPassword, name, nickname, addressIdx, subAddressIdx];
 
         const connection = await pool.getConnection(async (conn) => conn);
 

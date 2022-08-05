@@ -16,14 +16,15 @@ exports.postUsers = async function (req, res) {
     /**
      * Body: id, password, name, nickname, addressIdx, subAddressIdx
      */
-    const { id, password, name, nickname, addressIdx } = req.body;
+    const { id, password, name, nickname, addressIdx, subAddressIdx } = req.body;
 
     // check empty value
     if (!id) return res.send(errResponse(baseResponse.EMPTY_ID));
-    if (!password) return res.send(errResponse(baseResponse.EMPTY_ID));
-    if (!name) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
+    if (!password) return res.send(errResponse(baseResponse.EMPTY_PASSWORD));
+    if (!name) return res.send(errResponse(baseResponse.EMPTY_NAME));
     if (!nickname) return res.send(errResponse(baseResponse.EMPTY_NICKNAME));
     if (!addressIdx) return res.send(errResponse(baseResponse.EMPTY_ADDRESSIDX));
+    if (!subAddressIdx) return res.send(errResponse(baseResponse.EMPTY_SUBADDRESSIDX));
 
     // check length of value
     if (id.length > 20) return res.send(errResponse(baseResponse.LENGTH_ID));
@@ -31,13 +32,13 @@ exports.postUsers = async function (req, res) {
     if (name.length > 24) return res.send(errResponse(baseResponse.LENGTH_NAME));
     if (nickname.length > 24) return res.send(errResponse(baseResponse.LENGTH_NICKNAME));
 
-    const signUpResponse = await userService.createUser(id, password, name, nickname, addressIdx);
+    const signUpResponse = await userService.createUser(id, password, name, nickname, addressIdx, subAddressIdx);
 
     return res.send(signUpResponse);
 };
 
 /**
- * API No. 1.5
+ * API No. 2
  * API Name : 유저 조회 API (+ 아이디로 검색 조회)
  * [GET] /app/users
  */
@@ -60,7 +61,7 @@ exports.postUsers = async function (req, res) {
 };
 
 /**
- * API No. 2
+ * API No. 3
  * - Get a user
  * [GET] /app/users/{userId}
  */
@@ -77,7 +78,7 @@ exports.getUserById = async function (req, res) {
 };
 
 /**
- * API No. 3
+ * API No. 4
  * - update user info
  * [PATCH] /app/users/:userId
  * path variable : userId
@@ -127,7 +128,7 @@ exports.patchUsers = async function (req, res) {
 };
 
 /**
- * API No. 4
+ * API No. 5
  * - login
  * [POST] /app/login
  * body : userId, passsword
