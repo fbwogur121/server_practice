@@ -47,7 +47,7 @@ async function selectActiveNickname(connection, nickname) {
 }
 
 // for checking redundant email
-async function selectActiveNickname(connection, email) {
+async function selectActiveEmail(connection, email) {
   const selectUserStatusQuery = `
                     select 
                     exists(
@@ -183,6 +183,7 @@ module.exports = {
   selectUserId,
   selectActiveId,
   selectActiveNickname,
+  selectActiveEmail,
   selectCountFromAddress1,
   insertUserInfo,
   selectUserFromId,
