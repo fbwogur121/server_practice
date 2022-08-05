@@ -86,6 +86,8 @@ exports.postSignIn = async function (email, password) {
         const passwordRows = await userProvider.passwordCheck(userInfoRows[0].userId);
 
         console.log("3-6");
+        console.log(passwordRows[0].userPw);
+        console.log(hashedPassword);
         if (passwordRows[0].userPw !== hashedPassword) {
             return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
         }
