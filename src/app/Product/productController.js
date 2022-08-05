@@ -17,9 +17,12 @@ exports.postProduct = async function (req, res) {
 
     //const userIdxFromJwt = req.verifiedToken.userIdx;
 
+    console.log("1");
     const userIdx = req.params.userIdx;
+    console.log(userIdx);
 
     const {photo, title, categoryIdx, price, content, addressType} = req.body;
+    console.log(req.body);
 
     if(!title) return res.send(errResponse(baseResponse.EMPTY_TITLE));
     if(!categoryIdx) return res.send(errResponse(baseResponse.EMPTY_CATEGORYIDX));
