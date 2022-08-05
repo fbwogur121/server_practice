@@ -13,23 +13,25 @@ const {emit} = require("nodemon");
  * [POST] /app/products
  * body : photo, title, categoryIdx, price, content, addressType
  */
-exports.postProduct = async function (req, res) {
+ exports.postProduct = async function (req, res) {
+    /**
+     * Body: phtoto, title, categoryIdx, price, content, addressType
+     */
+    const userIdxFromJWT = req.verifiedToken.userIdx;
+    const { photo, title, categoryIdx, price, content, addressType } = req.body;
+    let savePrice = price;
 
-    const userIdxFromJwt = req.verifiedToken.userIdx;
+    if (!title) return res.send(errResponse(baseResponse.EMPTY_TITLE));
+    if (!categoryIdx) return res.send(errResponse(baseResponse.EMPTY_CATEGORYIDX));
+    if (!content) return res.send(errResponse(baseResponse.EMPTY_CONTENT));
+    if (!addressType) return res.send(errResponse(baseResponse.EMPTY_ADDRESSTYPE));
 
-    const {photo, title, categoryIdx, price, content, addressType} = req.body;
+    if (["address", "subAddress"].indexOf(addressType) < 0) return res.send(errResponse(baseResponse.OUT_OF_RANGE_ADDRESSTYPE));
+    if (!price) savePrice = 0;
 
-    if(!title) return res.send(errResponse(baseResponse.EMPTY_TITLE));
-    if(!categoryIdx) return res.send(errResponse(baseResponse.EMPTY_CATEGORYIDX));
-    if(!content) return res.send(errResponse(baseResponse.EMPTY_CONTENT));
-    if(!addressType) return res.send(errResponse(baseResponse.EMPTY_ADDRESSTYPE));
+    const productRespone = await productService.createProduct(userIdxFromJWT, photo, title, categoryIdx, savePrice, content, addressType);
 
-    if(["address", "subAddress"].indexOf(addressType) < 0) return res.send(errResponse(baseResponse.OUT_OF_RANGE_ADDRESSTYPE));
-    if(!price) savePrice = 0;
-
-    const productResponse = await productService.createProduct(userIdx, photo, title, categoryIdx, price, content, addressType);
-
-    return res.send(productResponse);
+    return res.send(productRespone);
 };
 
 /**
@@ -42,7 +44,7 @@ exports.getProductCategories = async function (req, res) {
     return res.send(response(baseResponse.SUCCESS, categoriesResult));
 };
 
-/** api 정보 양식
+/** 
  * API No. 3
  * API Name : Get products in range
  * [GET] /app/products
@@ -68,7 +70,7 @@ exports.getProducts = async function(req, res) {
     return res.send(response(baseResponse.SUCCESS, getProductsResult));
 };
 
-/** api 정보 양식
+/** 
  * API No. 4
  * API Name : Get the product info
  * [GET] /app/products/:productIdx
@@ -109,7 +111,7 @@ exports.getProduct = async function (req, res) {
 
 };
 
-/** api 정보 양식
+/** 
  * API No. 5
  * API Name : Update the product
  * [PATCH] /app/products/:productIdx
@@ -163,7 +165,7 @@ exports.patchProduct = async function (req, res) {
     return res.send(response(baseResponse.SUCCESS, patchResponse));
 };
 
-/** api 정보 양식
+/** 
  * API No. 6
  * API Name : Get products in the category
  * [GET] /app/products/categories/:categoryIdx
