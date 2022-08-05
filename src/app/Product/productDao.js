@@ -1,3 +1,4 @@
+// 카테고리 선택
 async function selectProductCategories(connection) {
     const selectProductCategoriesQuery = `
                     SELECT *
@@ -7,6 +8,7 @@ async function selectProductCategories(connection) {
     return categoriesResult;
 }
 
+// 카테고리 갯수
 async function selectProductCategoriesCount(connection) {
     const query = `
                     SELECT count(category) as count
@@ -16,6 +18,7 @@ async function selectProductCategoriesCount(connection) {
     return categoriesResult;
 }
 
+//product생성
 async function insertProduct(connection, createProductParams) {
     const query = `
                     insert into Product(location, title, content, Price, sellerIdx, category) 
@@ -25,6 +28,7 @@ async function insertProduct(connection, createProductParams) {
     return insertProductResult;
 }
 
+// product에 사진등록
 async function insertProductPhoto(connection, params) {
     const query = `
                     insert into ProductPhoto(productIdx, photo) 
@@ -34,6 +38,7 @@ async function insertProductPhoto(connection, params) {
     return insertProductPhotoResult;
 }
 
+//
 async function selectProductsAddress1(connection, address1Idx) {
     const query = `
                     select p.productIdx,
@@ -48,10 +53,10 @@ async function selectProductsAddress1(connection, address1Idx) {
                     left join (
                         select productIdx, photo
                         from ProductPhoto
-                        where status = 's'
+                        where status = 'Y'
                     ) pp on p.productIdx = pp.productIdx
                     left join Address1 a1 on p.location = a1.address1Idx
-                    where p.location = ? and p.status in ('s','m')
+                    where p.location = ? and p.status = 'Y'
                     group by p.productIdx;
                     `;
     const [selectProductsResult] = await connection.query(query, address1Idx);
@@ -71,11 +76,11 @@ async function selectProductsAddress2(connection, address2Idx) {
                     left join (
                         select productIdx, photo
                         from ProductPhoto
-                        where status = 's'
+                        where status = 'Y'
                     ) pp on p.productIdx = pp.productIdx
                     left join Address1 a1 on p.location = a1.address1Idx
                     left join Address2 a2 on a1.address2Idx = a2.address2Idx
-                    where a2.address2Idx = ? and p.status in ('s','m')
+                    where a2.address2Idx = ? and p.status = 'Y'
                     group by p.productIdx;
                     `;
     const [selectProductsResult] = await connection.query(query, address2Idx);
@@ -95,12 +100,12 @@ async function selectProductsAddress3(connection, address3Idx) {
                     left join (
                         select productIdx, photo
                         from ProductPhoto
-                        where status = 's'
+                        where status = 'Y'
                     ) pp on p.productIdx = pp.productIdx
                     left join Address1 a1 on p.location = a1.address1Idx
                     left join Address2 a2 on a1.address2Idx = a2.address2Idx
                     left join Address2 a3 on a2.address3Idx = a3.address3Idx
-                    where a3.address3Idx = ? and p.status in ('s','m')
+                    where a3.address3Idx = ? and p.status in = 'Y'
                     group by p.productIdx;
                     `;
     const [selectProductsResult] = await connection.query(query, address3Idx);
@@ -122,7 +127,7 @@ async function selectProductExist(connection, productIdx) {
                     exists(
                         select * 
                         from Product 
-                        where productIdx = ? and status in ('s','m')
+                        where productIdx = ? and status = 'Y'
                         ) exist;
                     `;
     const [selectProductExistResult] = await connection.query(query, productIdx);
@@ -157,7 +162,7 @@ async function selectProductPhoto(connection, productIdx) {
     const query = `
                     select productPhotoIdx, photo
                     from ProductPhoto
-                    where productIdx = ? and status = 's';
+                    where productIdx = ? and status = 'Y';
                     `;
     const [productPhotoResult] = await connection.query(query, productIdx);
     return productPhotoResult;
@@ -222,10 +227,10 @@ async function selectCategoryProductsAddress1(connection, params) {
                     left join (
                         select productIdx, photo
                         from ProductPhoto
-                        where status = 's'
+                        where status = 'Y'
                     ) pp on p.productIdx = pp.productIdx
                     left join Address1 a1 on p.location = a1.address1Idx
-                    where a1.address1Idx = ? and p.status in ('s','m') and p.category = ?
+                    where a1.address1Idx = ? and p.status in ('Y','m') and p.category = ?
                     group by p.productIdx;
                     `;
     const [ProductsResult] = await connection.query(query, params);
@@ -245,11 +250,11 @@ async function selectCategoryProductsAddress2(connection, params) {
                     left join (
                         select productIdx, photo
                         from ProductPhoto
-                        where status = 's'
+                        where status = 'Y'
                     ) pp on p.productIdx = pp.productIdx
                     left join Address1 a1 on p.location = a1.address1Idx
                     left join Address2 a2 on a1.address2Idx = a2.address2Idx
-                    where a2.address2Idx = ? and p.status in ('s','m') and p.category = ?
+                    where a2.address2Idx = ? and p.status in ('Y','m') and p.category = ?
                     group by p.productIdx;
                     `;
     const [insertProductPhotoResult] = await connection.query(query, params);
@@ -269,12 +274,12 @@ async function selectCategoryProductsAddress3(connection, params) {
                     left join (
                         select productIdx, photo
                         from ProductPhoto
-                        where status = 's'
+                        where status = 'Y'
                     ) pp on p.productIdx = pp.productIdx
                     left join Address1 a1 on p.location = a1.address1Idx
                     left join Address2 a2 on a1.address2Idx = a2.address2Idx
                     left join Address3 a3 on a2.address3Idx = a3.address3Idx
-                    where a3.address3Idx = ? and p.status in ('s','m') and p.category = ?
+                    where a3.address3Idx = ? and p.status in ('Y','m') and p.category = ?
                     group by p.productIdx;
                     `;
     const [insertProductPhotoResult] = await connection.query(query, params);
