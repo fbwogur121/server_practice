@@ -36,6 +36,7 @@ module.exports = {
     OUT_OF_RANGE_PRICE: { isSuccess: false, code: 409, message: "Price can not be a negative number." },
 
     NOT_EXIST_ID: { isSuccess: false, code: 410, message: "This ID is not exist." },
+    NOT_EXIST_EMAIL: { isSuccess: false, code: 410, message: "This Email is not exist." },
     NOT_EXIST_PRODUCT: { isSuccess: false, code: 411, message: "This product is not exist." },
 
     USER_STATUS_INACTIVE: { isSuccess: false, code: 412, message: "This account is inactive." },

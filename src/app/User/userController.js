@@ -132,20 +132,20 @@ exports.patchUsers = async function (req, res) {
  * API No. 5
  * - login
  * [POST] /app/login
- * body : userId, passsword
+ * body : email, passsword
  */
 exports.login = async function (req, res) {
-    const { id, password } = req.body;
+    const { email, password } = req.body;
 
     // check empty
-    if (!id) return res.send(response(baseResponse.EMPTY_ID));
+    if (!email) return res.send(response(baseResponse.EMPTY_EMAIL));
     if (!password) return res.send(response(baseResponse.EMPTY_PASSWORD));
 
     // check length
-    if (id.length > 20) return res.send(response(baseResponse.LENGTH_ID));
+    
     if (password.length > 20 || password.length < 6) return res.send(response(baseResponse.LENGTH_PASSWORD));
 
-    const signInResponse = await userService.postSignIn(id, password);
+    const signInResponse = await userService.postSignIn(email, password);
 
     return res.send(signInResponse);
 };

@@ -39,6 +39,14 @@ exports.accountCheck = async function (id) {
     return userAccountResult;
 };
 
+exports.emailCheck = async function (email) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const emailCheckResult = await userDao.selectUserEmail(connection, email);
+    connection.release();
+  
+    return emailCheckResult;
+};
+
 // get address range
 exports.countAddress1 = async function () {
     const connection = await pool.getConnection(async (conn) => conn);
@@ -90,3 +98,4 @@ exports.retrieveUserList = async function (userId) {
       return userListResult;
     }
   };
+

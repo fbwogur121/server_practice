@@ -54,26 +54,36 @@ exports.createUser = async function (id, password, name, email, nickname, addres
 };
 
 // login
-exports.postSignIn = async function (id, password) {
+exports.postSignIn = async function (email, password) {
     try {
         // 계정 상태 확인
-        const userInfoRows = await userProvider.accountCheck(id);
-        if (userInfoRows.length < 1) {
-            return errResponse(baseResponse.NOT_EXIST_ID);
-        } else if (userInfoRows[0].status === "N") {
-            return errResponse(baseResponse.USER_STATUS_INACTIVE);
-        } else if (userInfoRows[0].status === "D") {
-            return errResponse(baseResponse.USER_STATUS_WITHDRAWAL);
+        const emailRows = await userProvider.emailCheck(email);
+        if (emailRows.length < 1) {
+            return errResponse(baseResponse.NOT_EXIST_EMAIL);
         }
+
+        const selectEmail = emailRows[0].email;
+
         // hash PW
         const hashedPassword = await crypto.createHash("sha512").update(password).digest("hex");
 
+        const selectUserPasswordParams = [selectEmail, hashedPassword];
         // check PW
         const passwordRows = await userProvider.passwordCheck(userInfoRows[0].userId);
 
         if (passwordRows[0].userPw !== hashedPassword) {
             return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
         }
+
+        // 계정 상태 확인
+        const userInfoRows = await userProvider.accountCheck(id);
+        if (userInfoRows[0].status === "N") {
+            return errResponse(baseResponse.SIGNIN_INACTIVE_ACCOUNT);
+        } else if (userInfoRows[0].status === "D") {
+            return errResponse(baseResponse.SIGNIN_WITHDRAWAL_ACCOUNT);
+        }
+
+        console.log(userInfoRows[0].id) // DB의 userId
 
         // create token
         let token = await jwt.sign(
