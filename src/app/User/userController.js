@@ -143,7 +143,7 @@ exports.login = async function (req, res) {
 
     // check length
     console.log("2");
-    if (password.length > 20 || password.length < 6) return res.send(response(baseResponse.LENGTH_PASSWORD));
+    if (password.length > 300 || password.length < 6) return res.send(response(baseResponse.LENGTH_PASSWORD));
 
     console.log("3");
     const signInResponse = await userService.postSignIn(email, password);
