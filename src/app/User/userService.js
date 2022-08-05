@@ -15,32 +15,39 @@ const { connect } = require("http2");
 exports.createUser = async function (id, password, name, email, nickname, addressIdx, subAddressIdx) {
     console.log("kkk");
     try {
+        console.log("l");
         // check redundatn ID
         const isIdActive = await userProvider.idActiveCheck(id);
         if (isIdActive.active) return errResponse(baseResponse.REDUNDANT_ID);
 
+        console.log("2");
         // check redundatn PW
         const isNicknameActive = await userProvider.nicknameActiveCheck(nickname);
         if (isNicknameActive.active) return errResponse(baseResponse.REDUNDANT_NICKNAME);
 
+        console.log("3");
         // hash PW
         const hashedPassword = await crypto.createHash("sha512").update(password).digest("hex");
 
+        console.log("4");
         // check redudant email
         const isEmailActive = await userProvider.emailActiveCheck(email);
         if (isEmailActive.active) return errResponse(baseResponse.REDUNDANT_EMAIL);
 
+        console.log("5");
         // check address range
         const addressCount = await userProvider.countAddress1();
         if (addressIdx > addressCount.count || addressIdx < 0) return errResponse(baseResponse.OUT_OF_RANGE_ADDRESSIDX);
         const subAddressCount = await userProvider.countAddress1();
         if (subAddressIdx > subAddressCount.count || subAddressIdx < 0) return errResponse(baseResponse.OUT_OF_RANGE_ADDRESSIDX);
 
+        console.log("6");
         // save hashedPW
         const insertUserInfoParams = [id, hashedPassword, name, nickname, addressIdx, subAddressIdx];
 
         const connection = await pool.getConnection(async (conn) => conn);
 
+        console.log("7");
         // save
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
         console.log(`Added User : ${userIdResult[0].insertId}`);
