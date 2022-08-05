@@ -92,7 +92,7 @@ exports.postSignIn = async function (email, password) {
         }
 
         console.log("3-7");
-        console.log(userInfoRows[0].id) // DB의 userId
+        console.log(userInfoRows[0].userId) // DB의 userId
 
         console.log("3-8");
         // create token

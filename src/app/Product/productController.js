@@ -47,7 +47,6 @@ exports.getProductCategories = async function (req, res) {
  * [GET] /app/products
  * body : 
  */
-
 exports.getProducts = async function(req, res) {
     const userIdxFromJwt = req.verifiedToken.userIdx;
     const range = req.query.range;
