@@ -40,6 +40,7 @@ const {emit} = require("nodemon");
  * [GET] /app/product-categories
  */
 exports.getProductCategories = async function (req, res) {
+    console.log("!");
     const categoriesResult = await productProvider.provideProductCategories();
     return res.send(response(baseResponse.SUCCESS, categoriesResult));
 };
