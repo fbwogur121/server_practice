@@ -117,6 +117,17 @@ async function selectUserAccount(connection, id) {
   return selectUserAccountRow[0];
 }
 
+// 이메일로 회원 조회
+async function selectUserEmail(connection, email) {
+  const selectUserEmailQuery = `
+                SELECT email, nickname 
+                FROM UserInfo 
+                WHERE email = ?;
+                `;
+  const [emailRows] = await connection.query(selectUserEmailQuery, email);
+  return emailRows;
+}
+
 // 유저 정보 수정(닉네임)
 async function updateUserNickname(connection, updateNicknameParams) {
   const updateUserNicknameQuery = `
@@ -189,9 +200,11 @@ module.exports = {
   selectUserFromId,
   selectUserPassword,
   selectUserAccount,
+  selectUserEmail,
   updateUserNickname,
   updateUserPassword,
   updateUserAddress,
+  updateUserSubAddress,
   updateUserStatus,
   selectUserLocation,
 };
