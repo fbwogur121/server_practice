@@ -117,6 +117,18 @@ async function selectUserAccount(connection, id) {
   return selectUserAccountRow[0];
 }
 
+//이메일로 계정상태 체크 바로위와 동일
+async function selectUserAccount2(connection, email) {
+  const selectUserAccountQuery = `
+          SELECT status, userId, userIdx
+          FROM User 
+          WHERE email = ?;
+          `;
+  const selectUserAccountRow = await connection.query(selectUserAccountQuery, email);
+  return selectUserAccountRow[0];
+}
+
+
 // 이메일로 회원 조회
 async function selectUserEmail(connection, email) {
   const selectUserEmailQuery = `
@@ -200,6 +212,7 @@ module.exports = {
   selectUserFromId,
   selectUserPassword,
   selectUserAccount,
+  selectUserAccount2,
   selectUserEmail,
   updateUserNickname,
   updateUserPassword,

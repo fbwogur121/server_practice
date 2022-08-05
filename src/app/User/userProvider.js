@@ -30,7 +30,7 @@ exports.emailActiveCheck = async function (email) {
 };
 
 
-// check user status
+// check user status by id
 exports.accountCheck = async function (id) {
     const connection = await pool.getConnection(async (conn) => conn);
     const userAccountResult = await userDao.selectUserAccount(connection, id);
@@ -38,6 +38,15 @@ exports.accountCheck = async function (id) {
 
     return userAccountResult;
 };
+
+// check user status by email
+exports.accountCheck2 = async function (email) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const userAccountResult = await userDao.selectUserAccount2(connection, email);
+    connection.release();
+  
+    return userAccountResult;
+  };
 
 exports.emailCheck = async function (email) {
     const connection = await pool.getConnection(async (conn) => conn);

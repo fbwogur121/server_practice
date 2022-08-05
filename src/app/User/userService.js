@@ -73,11 +73,12 @@ exports.postSignIn = async function (email, password) {
 
         console.log("3-4");
         // 계정 상태 확인
-        const userInfoRows = await userProvider.accountCheck(email);
+        const userInfoRows = await userProvider.accountCheck2(email);
+
         if (userInfoRows[0].status === "N") {
-            return errResponse(baseResponse.SIGNIN_INACTIVE_ACCOUNT);
+            return errResponse(baseResponse.USER_STATUS_INACTIVE);
         } else if (userInfoRows[0].status === "D") {
-            return errResponse(baseResponse.SIGNIN_WITHDRAWAL_ACCOUNT);
+            return errResponse(baseResponse.USER_STATUS_WITHDRAWAL);
         }
 
         console.log("3-5");
