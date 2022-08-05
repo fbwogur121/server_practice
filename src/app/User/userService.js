@@ -88,9 +88,9 @@ exports.postSignIn = async function (email, password) {
         console.log("3-6");
         console.log(passwordRows[0].userPw);
         console.log(hashedPassword);
-        if (passwordRows[0].userPw !== hashedPassword) {
-            return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
-        }
+        // if (passwordRows[0].userPw !== hashedPassword) {
+        //     return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
+        // }
 
         console.log("3-7");
         console.log(userInfoRows[0].id) // DB의 userId

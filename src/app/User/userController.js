@@ -14,7 +14,7 @@ const { emit } = require("nodemon");
  */
 exports.postUsers = async function (req, res) {
     /**
-     * Body: id, password, name, nickname, addressIdx, subAddressIdx
+     * Body: id, password, name, email, nickname, addressIdx, subAddressIdx
      */
     const { id, password, name, email, nickname, addressIdx, subAddressIdx } = req.body;
 
