@@ -70,15 +70,6 @@ exports.postSignIn = async function (email, password) {
         const hashedPassword = await crypto.createHash("sha512").update(password).digest("hex");
 
         const selectUserPasswordParams = [selectEmail, hashedPassword];
-        
-        console.log("3-4");
-        // check PW
-        const passwordRows = await userProvider.passwordCheck(userInfoRows[0].userId);
-
-        console.log("3-5");
-        if (passwordRows[0].userPw !== hashedPassword) {
-            return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
-        }
 
         console.log("3-6");
         // 계정 상태 확인
@@ -87,6 +78,15 @@ exports.postSignIn = async function (email, password) {
             return errResponse(baseResponse.SIGNIN_INACTIVE_ACCOUNT);
         } else if (userInfoRows[0].status === "D") {
             return errResponse(baseResponse.SIGNIN_WITHDRAWAL_ACCOUNT);
+        }
+
+        console.log("3-4");
+        // check PW
+        const passwordRows = await userProvider.passwordCheck(userInfoRows[0].userId);
+
+        console.log("3-5");
+        if (passwordRows[0].userPw !== hashedPassword) {
+            return errResponse(baseResponse.NOT_MATCHED_PASSWORD);
         }
 
         console.log("3-7");
