@@ -33,7 +33,7 @@ exports.createUser = async function (id, password, name, email, nickname, addres
         const addressCount = await userProvider.countAddress1();
         if (addressIdx > addressCount.count || addressIdx < 0) return errResponse(baseResponse.OUT_OF_RANGE_ADDRESSIDX);
         const subAddressCount = await userProvider.countAddress1();
-        if (subAddressIdx > addressCount.count || subAddressIdx < 0) return errResponse(baseResponse.OUT_OF_RANGE_ADDRESSIDX);
+        if (subAddressIdx > subAddressCount.count || subAddressIdx < 0) return errResponse(baseResponse.OUT_OF_RANGE_ADDRESSIDX);
 
         // save hashedPW
         const insertUserInfoParams = [id, hashedPassword, name, nickname, addressIdx, subAddressIdx];
