@@ -17,7 +17,7 @@ exports.postProduct = async function (req, res) {
 
     //const userIdxFromJwt = req.verifiedToken.userIdx;
 
-    const userIdx = req.params.userId;
+    const userIdx = req.params.userIdx;
 
     const {photo, title, categoryIdx, price, content, addressType} = req.body;
 
