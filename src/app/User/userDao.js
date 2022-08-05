@@ -120,9 +120,9 @@ async function selectUserAccount(connection, id) {
 // 이메일로 회원 조회
 async function selectUserEmail(connection, email) {
   const selectUserEmailQuery = `
-                SELECT email, nickname 
-                FROM UserInfo 
-                WHERE email = ?;
+                SELECT userEmail, userNickName 
+                FROM User
+                WHERE userEmail = ?;
                 `;
   const [emailRows] = await connection.query(selectUserEmailQuery, email);
   return emailRows;
