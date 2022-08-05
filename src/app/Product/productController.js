@@ -15,7 +15,10 @@ const {emit} = require("nodemon");
  */
 exports.postProduct = async function (req, res) {
 
-    const userIdxFromJwt = req.verifiedToken.userIdx;
+    //const userIdxFromJwt = req.verifiedToken.userIdx;
+
+    const userIdx = req.params.userId;
+
     const {photo, title, categoryIdx, price, content, addressType} = req.body;
 
     if(!title) return res.send(errResponse(baseResponse.EMPTY_TITLE));
@@ -26,7 +29,7 @@ exports.postProduct = async function (req, res) {
     if(["address", "subAddress"].indexOf(addressType) < 0) return res.send(errResponse(baseResponse.OUT_OF_RANGE_ADDRESSTYPE));
     if(!price) savePrice = 0;
 
-    const productResponse = await productService.createProduct(userIdxFromJwt, photo, title, categoryIdx, price, content, addressType);
+    const productResponse = await productService.createProduct(userIdx, photo, title, categoryIdx, price, content, addressType);
 
     return res.send(productResponse);
 };
