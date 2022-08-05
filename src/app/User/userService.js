@@ -60,9 +60,9 @@ exports.postSignIn = async function (id, password) {
         const userInfoRows = await userProvider.accountCheck(id);
         if (userInfoRows.length < 1) {
             return errResponse(baseResponse.NOT_EXIST_ID);
-        } else if (userInfoRows[0].status === "i") {
+        } else if (userInfoRows[0].status === "Y") {
             return errResponse(baseResponse.USER_STATUS_INACTIVE);
-        } else if (userInfoRows[0].status === "d") {
+        } else if (userInfoRows[0].status === "N") {
             return errResponse(baseResponse.USER_STATUS_WITHDRAWAL);
         }
         // hash PW
