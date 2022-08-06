@@ -19,7 +19,7 @@ async function selectUserId(connection, userId) {
   return userIdRows;
 }
 
-// is exist a user by ID
+// userId로 유저 존재여부 조회
 async function selectActiveId(connection, id) {
   const selectUserStatusQuery = `
                     select 
@@ -32,6 +32,7 @@ async function selectActiveId(connection, id) {
   const [statusRows] = await connection.query(selectUserStatusQuery, id);
   return statusRows;
 }
+
 // for checking redundant nickname
 async function selectActiveNickname(connection, nickname) {
   const selectUserStatusQuery = `
