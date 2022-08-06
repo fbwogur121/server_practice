@@ -84,7 +84,7 @@ exports.getProduct = async function (req, res) {
     if (!isProductExist.exist) return res.send(errResponse(baseResponse.NOT_EXIST_PRODUCT));
 
     const isOnSale = await productProvider.checkProductStatus(productIdx);
-    if (["s", "m"].indexOf(isOnSale.status) < 0) return res.send(errResponse(baseResponse.PRODUCT_STATUS_NOT_ON_SALE));
+    if (["Y", "m"].indexOf(isOnSale.status) < 0) return res.send(errResponse(baseResponse.PRODUCT_STATUS_NOT_ON_SALE));
 
     // views count
     //const addviewsResult = await productService.addProductViews(userIdxFromJWT,productIdx); //todo
@@ -97,7 +97,7 @@ exports.getProduct = async function (req, res) {
 
     // product info
     const productResult = await productProvider.getProductInfo(productIdx);
-    if (productResult.status === "d") res.send(errResponse(baseResponse.PRODUCT_STATUS_DELETED));
+    if (productResult.status === "N") res.send(errResponse(baseResponse.PRODUCT_STATUS_DELETED));
 
     // 사진
     const photoObjcts = await productProvider.getProductPhotos(productIdx);
