@@ -95,6 +95,7 @@ exports.patchUsers = async function (req, res) {
     const userIdFromJWT = req.verifiedToken.userId;
     
     const userId = req.params.userId;
+
     const { nickname, password, addressIdx, subAddressIdx, status } = req.body;
     console.log(req.body);
     // check ID
