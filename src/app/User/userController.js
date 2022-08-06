@@ -144,6 +144,10 @@ exports.login = async function (req, res) {
     if (!email) return res.send(response(baseResponse.EMPTY_EMAIL));
     if (!password) return res.send(response(baseResponse.EMPTY_PASSWORD));
 
+    // 형식 체크 (by 정규표현식)
+    if (!regexEmail.test(email))
+        return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
+
     // check length
     if (password.length > 300 || password.length < 6) return res.send(response(baseResponse.LENGTH_PASSWORD));
 

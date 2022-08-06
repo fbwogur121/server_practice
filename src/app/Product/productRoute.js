@@ -2,22 +2,22 @@ module.exports = function(app){
     const product = require('./productController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
 
-    // 1. upload a product 
+    // 6. upload a product 
     app.post("/app/products", jwtMiddleware, product.postProduct);
 
-    // 2. get product categories X
+    // 7. get product categories X
     app.get("/app/product-categories", product.getProductCategories);
 
-    // 3. get products in range
+    // 8. get products in range
     app.get("/app/products", jwtMiddleware, product.getProducts);
     
-    // 4. get the product info
+    // 9. get the product info
     app.get("/app/products/:productIdx", jwtMiddleware, product.getProduct);
     
-    // 5. update the product
+    // 10. update the product
     app.patch("/app/products/:productIdx", jwtMiddleware, product.patchProduct);
     
-    // 6. get products in the category
+    // 11. get products in the category
     app.get("/app/products/categories/:categoryIdx", jwtMiddleware, product.getCategoryProducts);
 };
 

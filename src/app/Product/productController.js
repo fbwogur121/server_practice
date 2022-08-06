@@ -8,7 +8,7 @@ const regexEmail = require("regex-email");
 const {emit} = require("nodemon");
 
 /**
- * API No. 1
+ * API No. 6
  * API Name : 상품 등록
  * [POST] /app/products
  * body : photo, title, categoryIdx, price, content, addressType
@@ -35,7 +35,7 @@ const {emit} = require("nodemon");
 };
 
 /**
- * API No. 2
+ * API No. 7
  * API Name : Get product categories
  * [GET] /app/product-categories
  */
@@ -46,7 +46,7 @@ exports.getProductCategories = async function (req, res) {
 };
 
 /** 
- * API No. 3
+ * API No. 8
  * API Name : Get products in range
  * [GET] /app/products
  * body : 
@@ -72,7 +72,7 @@ exports.getProducts = async function(req, res) {
 };
 
 /** 
- * API No. 4
+ * API No. 9
  * API Name : Get the product info
  * [GET] /app/products/:productIdx
  */
@@ -113,7 +113,7 @@ exports.getProduct = async function (req, res) {
 };
 
 /** 
- * API No. 5
+ * API No. 10
  * API Name : Update the product
  * [PATCH] /app/products/:productIdx
  */
@@ -167,7 +167,7 @@ exports.patchProduct = async function (req, res) {
 };
 
 /** 
- * API No. 6
+ * API No. 11
  * API Name : Get products in the category
  * [GET] /app/products/categories/:categoryIdx
  */
