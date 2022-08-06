@@ -6,7 +6,7 @@ const pool = mysql.createPool({
     host: 'ron-db.c5xjal4juaz2.ap-northeast-2.rds.amazonaws.com',
     user: 'master',
     port: '3306',
-    password: 'wogur121!!',
+    password: '',
     database: 'ronDB'
 });
 
