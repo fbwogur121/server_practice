@@ -2,7 +2,7 @@ const { pool } = require("../../../config/database");
 const { logger } = require("../../../config/winston");
 const productDao = require("./productDao");
 const userProvider = require("../User/userProvider");
-const addressProvier = require("../Address/addressProvider");
+//const addressProvier = require("../Address/addressProvider");
 const funcs = require("../funcs");
 
 exports.provideProductCategories = async function () {
