@@ -17,9 +17,13 @@ const {emit} = require("nodemon");
     /**
      * Body: phtoto, title, categoryIdx, price, content, addressType
      */
+    console.log("1");
     const userIdxFromJWT = req.verifiedToken.userIdx;
+    console.log(userIdxFromJWT);
+
     const { photo, title, categoryIdx, price, content, addressType } = req.body;
     let savePrice = price;
+    console.log(savePrice);
 
     if (!title) return res.send(errResponse(baseResponse.EMPTY_TITLE));
     if (!categoryIdx) return res.send(errResponse(baseResponse.EMPTY_CATEGORYIDX));
