@@ -17,15 +17,11 @@ const {emit} = require("nodemon");
     /**
      * Body: phtoto, title, categoryIdx, price, content, addressType
      */
-    console.log("1");
     const userIdxFromJWT = req.verifiedToken.userIdx;
-    console.log(userIdxFromJWT);
 
     const { photo, title, categoryIdx, price, content, addressType } = req.body;
-    console.log(req.body);
 
     let savePrice = price;
-    console.log(savePrice);
 
     if (!title) return res.send(errResponse(baseResponse.EMPTY_TITLE));
     if (!categoryIdx) return res.send(errResponse(baseResponse.EMPTY_CATEGORYIDX));
@@ -46,7 +42,6 @@ const {emit} = require("nodemon");
  * [GET] /app/product-categories
  */
 exports.getProductCategories = async function (req, res) {
-    console.log("!");
     const categoriesResult = await productProvider.provideProductCategories();
     return res.send(response(baseResponse.SUCCESS, categoriesResult));
 };
