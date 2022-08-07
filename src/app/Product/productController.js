@@ -22,6 +22,8 @@ const {emit} = require("nodemon");
     console.log(userIdxFromJWT);
 
     const { photo, title, categoryIdx, price, content, addressType } = req.body;
+    console.log(req.body);
+
     let savePrice = price;
     console.log(savePrice);
 
