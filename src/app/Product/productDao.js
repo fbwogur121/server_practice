@@ -292,7 +292,7 @@ async function selectProductViews(connection, productIdx) {
                     select P.productIdx, PV.count
                     from ProductViews PV
                     left join Product P on PV.productIdx = P.productIdx
-                    where P.productIdx = ? and P.status in ('Y','m')';
+                    where P.productIdx = ? and P.status in ('Y','m');
                 `;
     const [selectProductViewsResult] = await connection.query(query, productIdx);
     return selectProductViewsResult;
