@@ -109,3 +109,19 @@ exports.getCategoryProductsInRange = async function (userIdx, addressType, range
     await funcs.modifyObjs(categoryProductsResult, funcs.productTimeDiff);
     return categoryProductsResult;
 };
+
+exports.getProductViews = async function (productIdx) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const getProductViewsResult = await productDao.selectProductViews(productIdx);
+    connection.release();
+
+    return getProductViewsResult;
+};
+
+exports.getProductLikes = async function (productIdx) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const getProductLikesResult = await productDao.selectProductLikes(productIdx);
+    connection.release();
+
+    return getProductLikesResult;
+};

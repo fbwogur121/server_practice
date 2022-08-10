@@ -286,6 +286,25 @@ async function selectCategoryProductsAddress3(connection, params) {
     return insertProductPhotoResult;
 }
 
+//상품조회수
+async function selectProductViews(connection, productIdx) {
+    const query = `
+                    select P.productIdx, PV.count
+                    from ProductViews PV
+                    left join Product P on PV.productIdx = P.productIdx
+                    where P.productIdx = ?;
+                `;
+    const [selectProductViewsResult] = await connection.query(query, productIdx);
+    return selectProductViewsResult;
+}
+
+//상품 좋아요수
+async function selectProductLikes() {
+    const query = `
+    
+                `;
+}
+
 module.exports = {
     selectProductCategories,
     selectProductCategoriesCount,
@@ -307,4 +326,7 @@ module.exports = {
     selectCategoryProductsAddress1,
     selectCategoryProductsAddress2,
     selectCategoryProductsAddress3,
+    selectProductViews,
+    selectProductLikes,
+
 };

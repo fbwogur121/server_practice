@@ -54,19 +54,23 @@ exports.getProductCategories = async function (req, res) {
  */
 exports.getProducts = async function(req, res) {
     const userIdxFromJwt = req.verifiedToken.userIdx;
+
     const range = req.query.range;
     let addressType = req.query["address-type"];
+    console.log(range);
+    console.log(addressType);
+
     if(addressType === "sub-address") addressType="subAddress";
     // const params = req.query;
     // const params = req.params;
-    if(!addressType) return res.send(errResponse(baseResponse.EMPTY_ADDRESSTYPE));
     if(!range) return res.send(errResponse(baseResponse.EMPTY_SEARCH_RANGE));
+    if(!addressType) return res.send(errResponse(baseResponse.EMPTY_ADDRESSTYPE));
 
     if(["address", "subaddress"].indexOf(addressType) < 0)
         return res.send(errResponse(baseResponse.OUT_OF_RANGE_ADDRESSTYPE));
     if(range<1 || range>3) return res.send(errResponse(baseResponse.OUT_OF_RANGE_SEARCH_RANGE));
 
-    const getProductsResult = await productProvider.getProductInRange(userIdxFromJwt, addressType, range);
+    const getProductsResult = await productProvider.getProductsInRange(userIdxFromJwt, addressType, range);
     if(getProductsResult.length<1) return res.send(errResponse(baseResponse.PRODUCT_NONE));
 
     return res.send(response(baseResponse.SUCCESS, getProductsResult));
@@ -89,10 +93,10 @@ exports.getProduct = async function (req, res) {
 
     // views count
     //const addviewsResult = await productService.addProductViews(userIdxFromJWT,productIdx); //todo
-    //const viewsResult = await productProvider.getProductViews(productIdx); // todo
+    const viewsResult = await productProvider.getProductViews(productIdx); // todo
 
     // likes count
-    //const likesResult = await productProvider.getProductlikes(productIdx);
+    //const likesResult = await productProvider.getProductLikes(productIdx);
 
     // chats count
 
@@ -107,6 +111,8 @@ exports.getProduct = async function (req, res) {
 
     const result = {};
     result.productInfo = productResult;
+    result.viewsResult = viewsResult;
+    //result.likesResult = likesResult;
     result.photos = photoResult;
 
     return res.send(response(baseResponse.SUCCESS, result));
