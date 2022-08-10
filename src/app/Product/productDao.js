@@ -289,10 +289,11 @@ async function selectCategoryProductsAddress3(connection, params) {
 //상품조회수
 async function selectProductViews(connection, productIdx) {
     const query = `
+                    set @a = productIdx;
                     select P.productIdx, PV.count
                     from ProductViews PV
                     left join Product P on PV.productIdx = P.productIdx
-                    where P.productIdx = ?;
+                    where P.productIdx = @a;
                 `;
     const [selectProductViewsResult] = await connection.query(query, productIdx);
     return selectProductViewsResult;
