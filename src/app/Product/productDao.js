@@ -292,18 +292,24 @@ async function selectProductViews(connection, productIdx) {
                     select P.productIdx, PV.count
                     from ProductViews PV
                     left join Product P on PV.productIdx = P.productIdx
-                    where P.productIdx = ?;
+                    where P.productIdx = ? and P.status in ('Y','m')';
                 `;
     const [selectProductViewsResult] = await connection.query(query, productIdx);
     return selectProductViewsResult;
 }
 
 //상품 좋아요수
-// async function selectProductLikes() {
-//     const query = `
-    
-//                 `;
-// }
+async function selectProductLikes(connection, productIdx) {
+    const query = `
+                    select count(LP.productIdx) as count
+                    from LikeProduct LP
+                    left join Product P on LP.productIdx = P.productIdx
+                    where LP.productIdx=? and P.status in ('Y','m');
+                `;
+    const [selectProductLikesResult] = await connection.query(query, productIdx);
+    return selectProductLikesResult;
+}
+
 
 module.exports = {
     selectProductCategories,
@@ -327,6 +333,6 @@ module.exports = {
     selectCategoryProductsAddress2,
     selectCategoryProductsAddress3,
     selectProductViews,
-    //selectProductLikes,
+    selectProductLikes,
 
 };

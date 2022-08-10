@@ -118,10 +118,10 @@ exports.getProductViews = async function (productIdx) {
     return getProductViewsResult;
 };
 
-// exports.getProductLikes = async function (productIdx) {
-//     const connection = await pool.getConnection(async (conn) => conn);
-//     const getProductLikesResult = await productDao.selectProductLikes(productIdx);
-//     connection.release();
+exports.getProductLikes = async function (productIdx) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const getProductLikesResult = await productDao.selectProductLikes(connection, productIdx);
+    connection.release();
 
-//     return getProductLikesResult;
-// };
+    return getProductLikesResult;
+};

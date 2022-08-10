@@ -93,10 +93,10 @@ exports.getProduct = async function (req, res) {
 
     // views count
     //const addviewsResult = await productService.addProductViews(userIdxFromJWT,productIdx); //todo
-    const viewsResult = await productProvider.getProductViews(productIdx); // todo
+    const viewsResult = await productProvider.getProductViews(productIdx);
 
     // likes count
-    //const likesResult = await productProvider.getProductLikes(productIdx);
+    const likesResult = await productProvider.getProductLikes(productIdx);
 
     // chats count
 
@@ -112,7 +112,7 @@ exports.getProduct = async function (req, res) {
     const result = {};
     result.productInfo = productResult;
     result.viewsResult = viewsResult;
-    //result.likesResult = likesResult;
+    result.likesResult = likesResult;
     result.photos = photoResult;
 
     return res.send(response(baseResponse.SUCCESS, result));
