@@ -299,11 +299,11 @@ async function selectProductViews(connection, productIdx) {
 }
 
 //상품 좋아요수
-async function selectProductLikes() {
-    const query = `
+// async function selectProductLikes() {
+//     const query = `
     
-                `;
-}
+//                 `;
+// }
 
 module.exports = {
     selectProductCategories,
@@ -327,6 +327,6 @@ module.exports = {
     selectCategoryProductsAddress2,
     selectCategoryProductsAddress3,
     selectProductViews,
-    selectProductLikes,
+    //selectProductLikes,
 
 };
