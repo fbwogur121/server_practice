@@ -112,7 +112,7 @@ exports.getCategoryProductsInRange = async function (userIdx, addressType, range
 
 exports.getProductViews = async function (productIdx) {
     const connection = await pool.getConnection(async (conn) => conn);
-    const getProductViewsResult = await productDao.selectProductViews(productIdx);
+    const getProductViewsResult = await productDao.selectProductViews(connection, productIdx);
     connection.release();
 
     return getProductViewsResult;
