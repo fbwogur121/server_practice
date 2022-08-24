@@ -313,7 +313,10 @@ async function selectProductLikes(connection, productIdx) {
 //상품 채팅수
 async function selectProductChats(connection, productIdx) {
     const query = `
-                    
+                    select count(PCR.chatRoomIdx) as count
+                    from ProductChatRoom PCR
+                    left join Product P on PCR.productIdx = P.productIdx
+                    where PCR.productIdx=? and P.status in ('Y','m');
                 `;
     const [selectProductChatsResult] = await connection.query(query, productIdx);
     return selectProductChatsResult;

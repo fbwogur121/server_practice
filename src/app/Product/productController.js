@@ -105,7 +105,7 @@ exports.getProduct = async function (req, res) {
     const likesResult = await productProvider.getProductLikes(productIdx);
 
     // chats count
-    //const chatsResult = await productProvider.getProductChats(productIdx);
+    const chatsResult = await productProvider.getProductChats(productIdx);
 
     // 사진
     const photoObjcts = await productProvider.getProductPhotos(productIdx);
