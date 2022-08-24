@@ -83,6 +83,7 @@ exports.getProducts = async function(req, res) {
  */
 exports.getProduct = async function (req, res) {
     console.log("zz");
+    console.log("zz2");
     const userIdxFromJWT = req.verifiedToken.userIdx; //조회 카운트
     const productIdx = req.params.productIdx;
 
@@ -104,7 +105,7 @@ exports.getProduct = async function (req, res) {
     const likesResult = await productProvider.getProductLikes(productIdx);
 
     // chats count
-    const chatsResult = await productProvider.getProductChats(productIdx);
+    //const chatsResult = await productProvider.getProductChats(productIdx);
 
     // 사진
     const photoObjcts = await productProvider.getProductPhotos(productIdx);
