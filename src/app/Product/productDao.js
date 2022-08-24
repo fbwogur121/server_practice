@@ -310,6 +310,14 @@ async function selectProductLikes(connection, productIdx) {
     return selectProductLikesResult;
 }
 
+//상품 채팅수
+async function selectProductChats(connection, productIdx) {
+    const query = `
+                    
+                `;
+    const [selectProductChatsResult] = await connection.query(query, productIdx);
+    return selectProductChatsResult;
+}
 
 module.exports = {
     selectProductCategories,
@@ -334,5 +342,5 @@ module.exports = {
     selectCategoryProductsAddress3,
     selectProductViews,
     selectProductLikes,
-
+    selectProductChats,
 };

@@ -125,3 +125,11 @@ exports.getProductLikes = async function (productIdx) {
 
     return getProductLikesResult;
 };
+
+exports.getProductChats = async function (productIdx) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const getProductChatsResult = await productDao.selectProductChats(connection, productIdx);
+    connection.release();
+
+    return getProductChatsResult;
+};

@@ -82,6 +82,7 @@ exports.getProducts = async function(req, res) {
  * [GET] /app/products/:productIdx
  */
 exports.getProduct = async function (req, res) {
+    console.log("zz");
     const userIdxFromJWT = req.verifiedToken.userIdx; //조회 카운트
     const productIdx = req.params.productIdx;
 
@@ -91,6 +92,10 @@ exports.getProduct = async function (req, res) {
     const isOnSale = await productProvider.checkProductStatus(productIdx);
     if (["Y", "m"].indexOf(isOnSale.status) < 0) return res.send(errResponse(baseResponse.PRODUCT_STATUS_NOT_ON_SALE));
 
+    // product info
+    const productResult = await productProvider.getProductInfo(productIdx);
+    if (productResult.status === "N") res.send(errResponse(baseResponse.PRODUCT_STATUS_DELETED));
+
     // views count
     //const addviewsResult = await productService.addProductViews(userIdxFromJWT,productIdx); //todo
     const viewsResult = await productProvider.getProductViews(productIdx);
@@ -99,10 +104,7 @@ exports.getProduct = async function (req, res) {
     const likesResult = await productProvider.getProductLikes(productIdx);
 
     // chats count
-
-    // product info
-    const productResult = await productProvider.getProductInfo(productIdx);
-    if (productResult.status === "N") res.send(errResponse(baseResponse.PRODUCT_STATUS_DELETED));
+    const chatsResult = await productProvider.getProductChats(productIdx);
 
     // 사진
     const photoObjcts = await productProvider.getProductPhotos(productIdx);
@@ -113,6 +115,7 @@ exports.getProduct = async function (req, res) {
     result.productInfo = productResult;
     result.viewsResult = viewsResult;
     result.likesResult = likesResult;
+    result.chatsResult = chatsResult;
     result.photos = photoResult;
 
     return res.send(response(baseResponse.SUCCESS, result));
