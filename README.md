@@ -1,13 +1,8 @@
-# Node.js Template
-본 템플릿은 소프트스퀘어드 서버 교육용 Node.js 템플릿 입니다. (2021 ver.)
-
 ## ✨Common
 ### REST API
-REST API의 기본 구성 원리를 반드시 구글링하여 익힌 뒤에 Route를 구성하자.
-
 ### Folder Structure
 - `src`: 메인 로직 
-  `src`에는 도메인 별로 패키지를 구성하도록 했다. **도메인**이란 회원(User), 게시글(Post), 댓글(Comment), 주문(Order) 등 소프트웨어에 대한 요구사항 혹은 문제 영역이라고 생각하면 된다. 각자 설계할 APP을 분석하고 필요한 도메인을 도출하여 `src` 폴더를 구성하자.
+  `src`에는 도메인 별로 패키지를 구성하도록 했다. **도메인**이란 회원(User), 게시글(Post), 댓글(Comment), 주문(Order) 등 소프트웨어에 대한 요구사항 혹은 문제 영역이라고 생각하면 된다. 각자 설계할 APP을 분석하고 필요한 도메인을 도출하여 `src` 폴더를 구성.
 - `config` 및 `util` 폴더: 메인 로직은 아니지만 `src` 에서 필요한 부차적인 파일들을 모아놓은 폴더
 - 도메인 폴더 구조
 > Route - Controller - Provider/Service - DAO
@@ -18,24 +13,17 @@ REST API의 기본 구성 원리를 반드시 구글링하여 익힌 뒤에 Rout
 - DAO: Data Access Object의 줄임말. Query가 작성되어 있는 곳. 
 
 - 메소드 네이밍룰
-  이 템플릿에서는 사용되는 메소드 명명 규칙은 User 도메인을 참고하자. 항상 이 규칙을 따라야 하는 것은 아니지만, 네이밍은 통일성 있게 해주는 게 좋다.
+  이 템플릿에서는 사용되는 메소드 명명 규칙은 User 도메인을 참고하자.
   
 
 ### Comparison
 3개 템플릿 모두 다음과 같이 Request에 대해 DB 단까지 거친 뒤, 다시 Controller로 돌아와 Response 해주는 구조를 갖는다. 구조를 먼저 이해하고 템플릿을 사용하자.
 > `Request` -> Route -> Controller -> Service/Provider -> DAO -> DB
 
-> DB -> DAO -> Service/Provider -> Controller -> Route -> `Response`
-
-다음은 각 템플릿 별 차이점을 비교 기술해 놓은 것이다.
-#### PHP (패키지매니저 = composer)
-> Request(시작) / Response(끝) ⇄ Router (index.php) ⇄ Controller  ⇄ Service (CUD) / Provider (R) ⇄ PDO (DB)
+> DB -> DAO -> Service/Provider -> Controller -> Route -> Response
 
 #### Node.js (패키지매니저 = npm)
 > Request(시작) / Response(끝)  ⇄ Router (*Route.js) ⇄ Controller (*Controller.js) ⇄ Service (CUD) / Provider (R) ⇄ DAO (DB)
-
-#### Springboot java (패키지매니저 = Maven (= Spring 선호), Gradle (Springboot 선호))
-> Request(시작) / Response(끝) ⇄ Controller(= Router + Controller) ⇄ Service (CUD) / Provider (R) ⇄ DAO (DB)
 
 ### Validation
 서버 API 구성의 기본은 Validation을 잘 처리하는 것이다. 외부에서 어떤 값을 날리든 Validation을 잘 처리하여 서버가 터지는 일이 없도록 유의하자.
@@ -68,7 +56,6 @@ DB에서 검증해야 하는 의미적 Validation은 Provider 혹은 Service에�
 └── README.md
 ```
 ## ✨Description
-본 템플릿은 `Node.js`와 `Express` (`Node.js`의 웹 프레임워크)를 기반으로 구성되었다. `Node.js`와 `Express`의 자세한 내용과 원리는 각자 구글링을 통해 살펴보기 바란다.
 
 ### [Node.js](https://nodejs.org/ko/)
 -  `node index.js` 를 통해서 js 파일을 실행한다.
@@ -120,6 +107,3 @@ Log는 winston, winston-daily-rotate-file 라이브러리를 사용해 구성했
 - pm2 log 확인 (로그 경로는 구글링)
 - console.log 로 디버깅
 - 그 외 방법들
-
-## ✨License
-- 본 템플릿의 소유권은 소프트스퀘어드에 있습니다. 본 자료에 대한 상업적 이용 및 무단 복제, 배포 및 변경을 원칙적으로 금지하며 이를 위반할 때에는 형사처벌을 받을 수 있습니다.
